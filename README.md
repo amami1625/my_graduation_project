@@ -87,3 +87,6 @@ Supabase Authenticationを活用したアカウント作成・ログイン機能
 - データベース/ PostgreSQL, Supabase(ユーザー認証)
 - デプロイ先/ Vercel, Render
 - 使用予定のライブラリ React Hook Form, Zod, Next-cloudinary, vitest, rack-cors, jwt, rubocop, Rspec, TailwindCSS
+
+### 画面遷移図
+- https://www.figma.com/design/lRwNE9TfiZYweTt5QGb2gw/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=HEeQQdOTyJawr4nT-1
