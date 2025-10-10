@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: app_development
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/app_development
+    volumes:
+      - ./backend:/app
+      - gems_data:/usr/local/bundle
+    stdin_open: true
+    tty: true
+    command: bash -c "bundle exec rails db:prepare && bin/rails server -b 0.0.0.0 -p 3000"
+
+  web:
+    build: ./frontend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - app
+    env_file: .env
+    volumes:
+      - ./frontend:/home/node/app
+    stdin_open: true
+    tty: true
+
+volumes:
+  db_data:
+  gems_data:
