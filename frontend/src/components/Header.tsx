@@ -1,6 +1,11 @@
+import { LogoutButton } from "@/app/(auth)/logout/LogoutButton";
 import Link from "next/link";
 
-export default function Header() {
+interface HeaderProps {
+  isAuthenticated?: boolean;
+}
+
+export default function Header({ isAuthenticated }: HeaderProps) {
   return (
     <header className="border-b border-gray-200 bg-white/80 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
@@ -9,12 +14,20 @@ export default function Header() {
         </h1>
         <nav>
           <ul className="flex items-center gap-4 text-sm font-medium text-gray-600">
-            <li className="transition-colors hover:text-gray-900">
-              <Link href="/register">新規登録</Link>
-            </li>
-            <li className="transition-colors hover:text-gray-900">
-              <Link href="#">ログイン</Link>
-            </li>
+            {!isAuthenticated ? (
+              <>
+                <li className="transition-colors hover:text-gray-900">
+                  <Link href="/register">新規登録</Link>
+                </li>
+                <li className="transition-colors hover:text-gray-900">
+                  <Link href="/login">ログイン</Link>
+                </li>
+              </>
+            ) : (
+              <li className="transition-colors hover:text-gray-900">
+                <LogoutButton />
+              </li>
+            )}
           </ul>
         </nav>
       </div>

@@ -24,5 +24,15 @@ module App
     config.time_zone = "Tokyo"
     config.active_record.default_timezone = :local
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.generators do |g|
+      g.skip_routes false        # ルートは生成する
+      g.template_engine nil      # ビューテンプレート（ERB）を生成しない
+      g.test_framework nil       # テストファイルを生成しない
+      g.stylesheets false        # CSSファイルを生成しない
+      g.javascripts false        # JavaScriptファイルを生成しない
+      g.helper false            # ヘルパーファイルを生成しない
+      g.assets false            # アセットファイルを生成しない
+    end
   end
 end
