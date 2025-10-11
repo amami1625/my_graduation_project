@@ -7,7 +7,7 @@ import { RegisterFormData, registerSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpAction } from "@/app/(auth)/_lib";
 
-export default function SupabaseRegisterPage() {
+export default function RegisterPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
