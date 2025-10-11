@@ -18,10 +18,19 @@ export async function loginAction(formData: LoginFormData) {
   redirect("/top");
 }
 
+export async function logoutAction() {
+  const supabase = await createServerSupabaseClient();
+
+  await supabase.auth.signOut();
+
+  revalidatePath("/", "layout");
+  redirect("/");
+}
+
 export async function signUpAction(
   name: string,
   email: string,
-  password: string,
+  password: string
 ) {
   const supabase = await createServerSupabaseClient();
 
