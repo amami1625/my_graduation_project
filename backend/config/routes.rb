@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # API routes
   namespace :api do
     get "hello/index", to: "hello#index"
+    resource :profile, only: %i[show]
   end
 
   # Defines the root path route ("/")
