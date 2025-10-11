@@ -10,7 +10,7 @@ export default function Header() {
         <nav>
           <ul className="flex items-center gap-4 text-sm font-medium text-gray-600">
             <li className="transition-colors hover:text-gray-900">
-              <Link href="#">新規登録</Link>
+              <Link href="/register">新規登録</Link>
             </li>
             <li className="transition-colors hover:text-gray-900">
               <Link href="#">ログイン</Link>
