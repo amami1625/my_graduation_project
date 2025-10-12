@@ -12,14 +12,6 @@ const STATUS_LABEL: Record<ReadingStatus, string> = {
   completed: "読了",
 };
 
-const formatter = new Intl.DateTimeFormat("ja-JP", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-});
-
 export default async function BookPage({ params }: PageProps) {
   const { id } = await params;
   const book = await getBook(id);
@@ -71,11 +63,11 @@ export default async function BookPage({ params }: PageProps) {
             </div>
             <div className="flex flex-col gap-1">
               <span className="font-semibold text-gray-500">更新日</span>
-              <span>{formatter.format(new Date(book.updated_at))}</span>
+              <span>{book.updated_at}</span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="font-semibold text-gray-500">登録日</span>
-              <span>{formatter.format(new Date(book.created_at))}</span>
+              <span>{book.created_at}</span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="font-semibold text-gray-500">ID</span>
