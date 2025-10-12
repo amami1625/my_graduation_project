@@ -1,0 +1,18 @@
+class Api::BooksController < Api::ApplicationController
+  def create
+    book = current_user.books.build(book_params)
+    if book.save
+      render json: book, include: :category, status: :created
+    else
+      render json: { errors: book.errors }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  # TODO: Tag機能を実装したらtagsも追加する
+  # TODO: Author機能を実装したらauthorも追加する
+  def book_params
+    params.require(:book).permit(:title, :description, :rating, :reading_status, :category_id, :public)
+  end
+end
