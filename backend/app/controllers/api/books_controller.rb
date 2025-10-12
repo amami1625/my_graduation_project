@@ -8,6 +8,11 @@ class Api::BooksController < Api::ApplicationController
     end
   end
 
+  def show
+    book = current_user.books.includes(:category).find(params[:id])
+    render json: book, include: :category
+  end
+
   private
 
   # TODO: Tag機能を実装したらtagsも追加する

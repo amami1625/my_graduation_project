@@ -8,4 +8,6 @@ class Book < ApplicationRecord
   validates :rating, inclusion: { in: 1..5 }, allow_nil: true
   validates :reading_status, presence: true
   validates :public, inclusion: { in: [true, false] }
+
+  enum reading_status: { unread: 0, reading: 1, completed: 2 }
 end
