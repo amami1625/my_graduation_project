@@ -15,7 +15,7 @@ export const bookSchema = z.object({
   category: categorySchema.nullable().optional(),
   public: z.boolean(),
   created_at: z.string(),
-  updated_at: z.boolean(),
+  updated_at: z.string(),
 });
 
 // Bookのバリデーションスキーマ(フォーム用)
