@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  has_many :books, dependent: :destroy
+  has_many :authors, dependent: :destroy
+  has_many :categories, dependent: :destroy
+
   validates :name, presence: true, length: { maximum: 50 }
   validates :supabase_uid, presence: true, uniqueness: true
 
