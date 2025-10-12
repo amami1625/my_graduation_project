@@ -14,8 +14,16 @@ export const bookSchema = z.object({
   reading_status: z.enum(["unread", "reading", "completed"]),
   category: categorySchema.nullable().optional(),
   public: z.boolean(),
-  created_at: z.string(),
-  updated_at: z.string(),
+  created_at: z.string().transform((str) => {
+    return new Date(str).toLocaleString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+    });
+  }),
+  updated_at: z.string().transform((str) => {
+    return new Date(str).toLocaleString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+    });
+  }),
 });
 
 // Bookのバリデーションスキーマ(フォーム用)
