@@ -24,9 +24,14 @@ export default function Header({ isAuthenticated }: HeaderProps) {
                 </li>
               </>
             ) : (
-              <li className="transition-colors hover:text-gray-900">
-                <LogoutButton />
-              </li>
+              <>
+                <li className="transition-colors hover:text-gray-900">
+                  <Link href="/books">Books</Link>
+                </li>
+                <li className="transition-colors hover:text-gray-900">
+                  <LogoutButton />
+                </li>
+              </>
             )}
           </ul>
         </nav>
