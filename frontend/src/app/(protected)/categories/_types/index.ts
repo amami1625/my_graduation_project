@@ -1,1 +1,6 @@
-export { type Category, categorySchema } from "@/schemas/category";
+export {
+  type Category,
+  type CategoryFormData,
+  categorySchema,
+  categoryFormSchema,
+} from "@/schemas/category";
