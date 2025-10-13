@@ -9,22 +9,18 @@ import { createAuthor } from "../../_lib/actions";
 import { Author } from "../../types";
 
 interface AuthorModalProps {
-  isAuthorModalOpen: boolean;
-  setIsAuthorModalOpen: (isOpen: boolean) => void;
+  isOpen: boolean;
+  onClose: () => void;
   setCreatedAuthors: React.Dispatch<React.SetStateAction<Author[]>>;
 }
 
 export default function AuthorModal({
-  isAuthorModalOpen,
-  setIsAuthorModalOpen,
+  isOpen,
+  onClose,
   setCreatedAuthors,
 }: AuthorModalProps) {
   return (
-    <Dialog
-      open={isAuthorModalOpen}
-      onClose={() => setIsAuthorModalOpen(false)}
-      className="relative z-50"
-    >
+    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       {/* 背景オーバーレイ */}
       <DialogBackdrop className="fixed inset-0 bg-black/30" />
 
@@ -38,7 +34,7 @@ export default function AuthorModal({
           <AuthorForm
             action={createAuthor}
             submitLabel="追加"
-            cancel={() => setIsAuthorModalOpen(false)}
+            cancel={onClose}
             setCreatedAuthors={setCreatedAuthors}
           />
         </DialogPanel>
