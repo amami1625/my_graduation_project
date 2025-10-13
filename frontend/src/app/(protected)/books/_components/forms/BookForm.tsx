@@ -13,6 +13,7 @@ import { useState } from "react";
 import AuthorModal from "@/app/(protected)/authors/_components/modal";
 import { Author } from "@/schemas/author";
 import Select from "react-select";
+import CategoryModal from "@/app/(protected)/categories/_components/modal";
 
 const STATUS_OPTIONS: { value: ReadingStatus; label: string }[] = [
   { value: "unread", label: "未読" },
@@ -51,7 +52,10 @@ export default function BookForm({
 }: BookFormProps) {
   const [error, setError] = useState("");
   const [createdAuthors, setCreatedAuthors] = useState<Author[]>(authors);
+  const [createdCategorys, setCreatedCategories] =
+    useState<Category[]>(categories);
   const [isAuthorModalOpen, setIsAuthorModalOpen] = useState(false);
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const defaultValues: BookFormData = {
     title: book?.title ?? "",
@@ -213,15 +217,32 @@ export default function BookForm({
 
         {/* カテゴリ */}
         <div className="grid gap-4 md:grid-cols-2">
-          <label className="flex flex-col gap-2 text-sm">
-            <span className="font-semibold text-gray-700">カテゴリ</span>
+          <div className="flex flex-col gap-2 text-sm">
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="book-authors"
+                className="font-semibold text-gray-700"
+              >
+                カテゴリ
+              </label>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsCategoryModalOpen(true);
+                }}
+                className="text-sm text-blue-600 hover:text-blue-700"
+              >
+                + カテゴリを追加
+              </button>
+            </div>
             <select
               {...register("category_id", { valueAsNumber: true })}
               className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
             >
               <option value="0">未分類</option>
-              {categories &&
-                categories.map((category) => (
+              {createdCategorys &&
+                createdCategorys.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
                   </option>
@@ -232,7 +253,27 @@ export default function BookForm({
                 {errors.category_id.message}
               </p>
             )}
-          </label>
+          </div>
+          {/* <label className="flex flex-col gap-2 text-sm">
+            <span className="font-semibold text-gray-700">カテゴリ</span>
+            <select
+              {...register("category_id", { valueAsNumber: true })}
+              className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
+            >
+              <option value="0">未分類</option>
+              {createdCategorys &&
+                createdCategorys.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+            </select>
+            {errors.category_id && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.category_id.message}
+              </p>
+            )}
+          </label> */}
         </div>
 
         {/* 公開・非公開 */}
@@ -282,6 +323,11 @@ export default function BookForm({
         isAuthorModalOpen={isAuthorModalOpen}
         setIsAuthorModalOpen={setIsAuthorModalOpen}
         setCreatedAuthors={setCreatedAuthors}
+      />
+      <CategoryModal
+        isCategoryModalOpen={isCategoryModalOpen}
+        setIsCategoryModalOpen={setIsCategoryModalOpen}
+        setCreatedCategories={setCreatedCategories}
       />
     </>
   );
