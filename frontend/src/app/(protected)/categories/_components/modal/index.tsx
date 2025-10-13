@@ -9,22 +9,18 @@ import CategoryForm from "../forms";
 import { createCategory } from "../../_lib/actions";
 
 interface CategoryModalProps {
-  isCategoryModalOpen: boolean;
-  setIsCategoryModalOpen: (isOpen: boolean) => void;
+  isOpen: boolean;
+  onClose: () => void;
   setCreatedCategories: React.Dispatch<React.SetStateAction<Category[]>>;
 }
 
 export default function CategoryModal({
-  isCategoryModalOpen,
-  setIsCategoryModalOpen,
+  isOpen,
+  onClose,
   setCreatedCategories,
 }: CategoryModalProps) {
   return (
-    <Dialog
-      open={isCategoryModalOpen}
-      onClose={() => setIsCategoryModalOpen(false)}
-      className="relative z-50"
-    >
+    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       {/* 背景オーバーレイ */}
       <DialogBackdrop className="fixed inset-0 bg-black/30" />
 
@@ -38,7 +34,7 @@ export default function CategoryModal({
           <CategoryForm
             action={createCategory}
             submitLabel="追加"
-            cancel={() => setIsCategoryModalOpen(false)}
+            cancel={onClose}
             setCreatedCategories={setCreatedCategories}
           />
         </DialogPanel>
