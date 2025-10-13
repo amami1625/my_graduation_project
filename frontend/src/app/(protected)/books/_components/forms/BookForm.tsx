@@ -33,9 +33,8 @@ interface BookFormProps {
   book?: Book;
   authors?: Author[];
   categories?: Category[];
-  action: (formData: BookFormData) => Promise<void>;
+  action: (formData: BookFormData) => Promise<void | { error: string }>;
   submitLabel: string;
-  error?: string;
   loading?: boolean;
   cancel?: () => void;
 }
@@ -47,10 +46,10 @@ export default function BookForm({
   categories = [],
   action,
   submitLabel,
-  error,
   loading,
   cancel,
 }: BookFormProps) {
+  const [error, setError] = useState("");
   const [createdAuthors, setCreatedAuthors] = useState<Author[]>(authors);
   const [isAuthorModalOpen, setIsAuthorModalOpen] = useState(false);
 
@@ -75,11 +74,19 @@ export default function BookForm({
     defaultValues,
   });
 
+  const onSubmit = async (data: BookFormData) => {
+    const res = await action(data);
+    if (res && "error" in res) {
+      setError(res.error);
+      return;
+    }
+  };
+
   return (
     <>
       <form
         className="flex flex-col gap-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
-        onSubmit={handleSubmit(action)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         {book && (
           <input
