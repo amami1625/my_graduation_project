@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :api do
     get "hello/index", to: "hello#index"
     resources :books, only: %i[create show]
+    resources :authors, only: %i[index create]
     resource :profile, only: %i[show]
   end
 

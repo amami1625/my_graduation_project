@@ -16,8 +16,7 @@ class Api::BooksController < Api::ApplicationController
   private
 
   # TODO: Tag機能を実装したらtagsも追加する
-  # TODO: Author機能を実装したらauthorも追加する
   def book_params
-    params.require(:book).permit(:title, :description, :rating, :reading_status, :category_id, :public)
+    params.require(:book).permit(:title, :description, :rating, :reading_status, :category_id, :public, author_ids: [])
   end
 end

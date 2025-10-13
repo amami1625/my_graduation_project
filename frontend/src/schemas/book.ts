@@ -3,12 +3,12 @@ import { categorySchema } from "./category";
 
 // Bookのバリデーションスキーマ(APIレスポンス用)
 // TODO: タグ機能実装時にtagsフィールドを追加
-// TODO: Authors機能実装時にauthorフィールドを追加
 export const bookSchema = z.object({
   id: z.number(),
   title: z.string(),
   description: z.string().nullable(),
   user_id: z.number(),
+  author_ids: z.number().array().nullable(),
   category_id: z.number().nullable(),
   rating: z.number().int().min(0).max(5).nullable().optional(),
   reading_status: z.enum(["unread", "reading", "completed"]),
@@ -28,7 +28,6 @@ export const bookSchema = z.object({
 
 // Bookのバリデーションスキーマ(フォーム用)
 // TODO: タグ機能実装時にtagsフィールドを追加
-// TODO: Authors機能実装時にauthorフィールドを追加
 export const bookFormSchema = z.object({
   title: z
     .string()
@@ -36,6 +35,7 @@ export const bookFormSchema = z.object({
     .max(255, { message: "タイトルは255文字以内で入力してください" }),
   description: z.string().optional(),
   user_id: z.number().optional(),
+  author_ids: z.number().array().optional(),
   category_id: z.number().optional(),
   rating: z.number().min(0).max(5).optional(),
   reading_status: z.enum(["unread", "reading", "completed"]),

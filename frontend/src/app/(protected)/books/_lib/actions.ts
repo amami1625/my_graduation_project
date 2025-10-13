@@ -4,13 +4,23 @@ import { authenticatedRequest } from "@/supabase/dal";
 import { redirect } from "next/navigation";
 import { BookFormData } from "../_types";
 
-export async function createBook(formData: BookFormData): Promise<void> {
+export async function createBook(
+  formData: BookFormData
+): Promise<void | { error: string }> {
   const book = toRequestBody(formData);
 
-  await authenticatedRequest("/books", {
-    method: "POST",
-    body: JSON.stringify({ book }),
-  });
+  try {
+    await authenticatedRequest("/books", {
+      method: "POST",
+      body: JSON.stringify({ book }),
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    } else {
+      return { error: "不明なエラーが発生しました" };
+    }
+  }
 
   redirect("/books");
 }
