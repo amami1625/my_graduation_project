@@ -1,33 +1,15 @@
 "use client";
 
-import {
-  Book,
-  BookFormData,
-  bookFormSchema,
-  ReadingStatus,
-} from "@/app/(protected)/books/_types";
+import { Book, BookFormData } from "@/app/(protected)/books/_types";
 import { Category } from "@/app/(protected)/categories/_types";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import AuthorModal from "@/app/(protected)/authors/_components/modal";
 import { Author } from "@/schemas/author";
 import Select from "react-select";
+import AuthorModal from "@/app/(protected)/authors/_components/modal";
 import CategoryModal from "@/app/(protected)/categories/_components/modal";
-
-const STATUS_OPTIONS: { value: ReadingStatus; label: string }[] = [
-  { value: "unread", label: "未読" },
-  { value: "reading", label: "読書中" },
-  { value: "completed", label: "読了" },
-];
-
-const RATING_OPTIONS: { value: string; label: string }[] = [
-  { value: "1", label: "★" },
-  { value: "2", label: "★★" },
-  { value: "3", label: "★★★" },
-  { value: "4", label: "★★★★" },
-  { value: "5", label: "★★★★★" },
-];
+import { useBookFormState } from "../../_hooks/useBookFormState";
+import { useAuthorModal } from "../../_hooks/useAuthorModal";
+import { useCategoryModal } from "../../_hooks/useCategoryModal";
+import { STATUS_OPTIONS, RATING_OPTIONS } from "../../_constants";
 
 // TODO: Tag機能を実装したらTag型をimportする
 interface BookFormProps {
@@ -50,41 +32,25 @@ export default function BookForm({
   loading,
   cancel,
 }: BookFormProps) {
-  const [error, setError] = useState("");
-  const [createdAuthors, setCreatedAuthors] = useState<Author[]>(authors);
-  const [createdCategorys, setCreatedCategories] =
-    useState<Category[]>(categories);
-  const [isAuthorModalOpen, setIsAuthorModalOpen] = useState(false);
-  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
-
-  const defaultValues: BookFormData = {
-    title: book?.title ?? "",
-    description: book?.description ?? "",
-    user_id: book?.user_id,
-    author_ids: book?.author_ids ?? [],
-    category_id: book?.category_id ?? 0,
-    rating: book?.rating ?? 0,
-    reading_status: book?.reading_status ?? "unread",
-    public: book ? book.public : false,
-  };
+  // カスタムフックを使用
+  const { register, setValue, handleSubmit, errors, error, onSubmit } =
+    useBookFormState({ book, action });
 
   const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<BookFormData>({
-    resolver: zodResolver(bookFormSchema),
-    defaultValues,
-  });
+    createdAuthors,
+    setCreatedAuthors,
+    isAuthorModalOpen,
+    openAuthorModal,
+    closeAuthorModal,
+  } = useAuthorModal({ initialAuthors: authors });
 
-  const onSubmit = async (data: BookFormData) => {
-    const res = await action(data);
-    if (res && "error" in res) {
-      setError(res.error);
-      return;
-    }
-  };
+  const {
+    createdCategories,
+    setCreatedCategories,
+    isCategoryModalOpen,
+    openCategoryModal,
+    closeCategoryModal,
+  } = useCategoryModal({ initialCategories: categories });
 
   return (
     <>
@@ -128,7 +94,7 @@ export default function BookForm({
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  setIsAuthorModalOpen(true);
+                  openAuthorModal();
                 }}
                 className="text-sm text-blue-600 hover:text-blue-700"
               >
@@ -229,7 +195,7 @@ export default function BookForm({
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  setIsCategoryModalOpen(true);
+                  openCategoryModal();
                 }}
                 className="text-sm text-blue-600 hover:text-blue-700"
               >
@@ -241,8 +207,8 @@ export default function BookForm({
               className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
             >
               <option value="0">未分類</option>
-              {createdCategorys &&
-                createdCategorys.map((category) => (
+              {createdCategories &&
+                createdCategories.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
                   </option>
@@ -254,26 +220,6 @@ export default function BookForm({
               </p>
             )}
           </div>
-          {/* <label className="flex flex-col gap-2 text-sm">
-            <span className="font-semibold text-gray-700">カテゴリ</span>
-            <select
-              {...register("category_id", { valueAsNumber: true })}
-              className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-            >
-              <option value="0">未分類</option>
-              {createdCategorys &&
-                createdCategorys.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-            </select>
-            {errors.category_id && (
-              <p className="mt-1 text-sm text-red-600">
-                {errors.category_id.message}
-              </p>
-            )}
-          </label> */}
         </div>
 
         {/* 公開・非公開 */}
@@ -320,13 +266,13 @@ export default function BookForm({
       </form>
       {/* モーダル */}
       <AuthorModal
-        isAuthorModalOpen={isAuthorModalOpen}
-        setIsAuthorModalOpen={setIsAuthorModalOpen}
+        isOpen={isAuthorModalOpen}
+        onClose={closeAuthorModal}
         setCreatedAuthors={setCreatedAuthors}
       />
       <CategoryModal
-        isCategoryModalOpen={isCategoryModalOpen}
-        setIsCategoryModalOpen={setIsCategoryModalOpen}
+        isOpen={isCategoryModalOpen}
+        onClose={closeCategoryModal}
         setCreatedCategories={setCreatedCategories}
       />
     </>
