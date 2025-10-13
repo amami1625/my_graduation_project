@@ -5,10 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { Author } from "@/app/(protected)/authors/types";
+import { useState } from "react";
 
 interface AuthorFormProps {
   submitLabel: string;
-  action: (formData: AuthorFormData) => Promise<Author>;
+  action: (formData: AuthorFormData) => Promise<Author | { error: string }>;
   cancel: () => void;
   setCreatedAuthors: React.Dispatch<React.SetStateAction<Author[]>>;
 }
@@ -19,6 +20,8 @@ export default function AuthorForm({
   cancel,
   setCreatedAuthors,
 }: AuthorFormProps) {
+  const [error, setError] = useState("");
+
   const defaultValues: AuthorFormData = {
     name: "",
   };
@@ -36,6 +39,10 @@ export default function AuthorForm({
 
   const onSubmit = async (data: AuthorFormData) => {
     const newAuthor = await action(data);
+    if ("error" in newAuthor) {
+      setError(newAuthor.error);
+      return;
+    }
     setCreatedAuthors((prev) => [...prev, newAuthor]);
     cancel();
   };
@@ -78,6 +85,8 @@ export default function AuthorForm({
           {pending ? "送信中..." : submitLabel}
         </button>
       </div>
+
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </form>
   );
 }
