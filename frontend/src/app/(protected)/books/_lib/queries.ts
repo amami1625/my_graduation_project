@@ -1,6 +1,19 @@
 import { authenticatedRequest } from "@/supabase/dal";
 import { bookSchema } from "../_types";
 
+export async function getBooks() {
+  try {
+    const data = await authenticatedRequest("/books");
+    return bookSchema.array().parse(data);
+  } catch (errror) {
+    if (errror instanceof Error) {
+      return { error: errror.message };
+    } else {
+      return { error: "不明なエラーが発生しました" };
+    }
+  }
+}
+
 // Book詳細取得
 export async function getBook(id: string) {
   try {
