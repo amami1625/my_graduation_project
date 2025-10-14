@@ -1,10 +1,28 @@
-import Link from "next/link";
+import BookCard from "./_components/display/BookCard";
+import EmptyState from "./_components/display/EmptyState";
+import { getBooks } from "./_lib/queries";
+import ErrorMessage from "@/components/ErrorMessage";
 
-export default function BooksPage() {
+export default async function BooksPage() {
+  const books = await getBooks();
+
+  if ("error" in books) {
+    return <ErrorMessage val={books} />;
+  }
+
   return (
-    <div>
-      <h3> Books Page</h3>
-      <Link href="/books/new">Create New Book</Link>
-    </div>
+    <>
+      {books.length === 0 ? (
+        // 本が登録されていない場合の表示
+        <EmptyState />
+      ) : (
+        // 本のリスト表示
+        <div className="space-y-3">
+          {books.map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
