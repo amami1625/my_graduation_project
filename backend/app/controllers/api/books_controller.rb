@@ -1,4 +1,9 @@
 class Api::BooksController < Api::ApplicationController
+  def index
+    books = current_user.books.includes(:category, :authors).order(created_at: :desc)
+    render json: books, include: [:category, :authors]
+  end
+
   def create
     book = current_user.books.build(book_params)
     if book.save
