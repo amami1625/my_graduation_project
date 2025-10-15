@@ -3,6 +3,7 @@
 import { authenticatedRequest } from "@/supabase/dal";
 import { redirect } from "next/navigation";
 import { BookFormData } from "../_types";
+import { revalidatePath } from "next/cache";
 
 export async function createBook(
   formData: BookFormData
@@ -23,6 +24,28 @@ export async function createBook(
   }
 
   redirect("/books");
+}
+
+export async function updateBook(
+  formData: BookFormData
+): Promise<{ success: true } | { error: string }> {
+  const book = toRequestBody(formData);
+
+  try {
+    await authenticatedRequest(`/books/${book.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ book }),
+    });
+
+    revalidatePath(`/books/${book.id}`);
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    } else {
+      return { error: "不明なエラーが発生しました" };
+    }
+  }
 }
 
 // FormDataからBook用のリクエストボディを生成
