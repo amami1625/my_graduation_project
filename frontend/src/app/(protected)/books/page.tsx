@@ -1,3 +1,4 @@
+import PageTitle from "@/components/PageTitle";
 import { getAuthors } from "../authors/_lib/queries";
 import { getCategories } from "../categories/_lib/queries";
 import BookList from "./_components/display/BookList";
@@ -25,7 +26,7 @@ export default async function BooksPage() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">本一覧</h1>
+      <PageTitle title="本一覧" />
       <BookList books={books} authors={authors} categories={categories} />
     </>
   );
