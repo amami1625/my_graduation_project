@@ -1,10 +1,10 @@
 "use client";
 
-interface BookDeleteButtonProps {
+interface DeleteBookButtonProps {
   onClick: () => void;
 }
 
-export default function BookDeleteButton({ onClick }: BookDeleteButtonProps) {
+export default function DeleteBookButton({ onClick }: DeleteBookButtonProps) {
   return (
     <button
       type="button"
