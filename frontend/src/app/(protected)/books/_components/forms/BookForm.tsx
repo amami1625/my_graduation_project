@@ -4,6 +4,7 @@ import { Book, BookFormData } from "@/app/(protected)/books/_types";
 import { Category } from "@/app/(protected)/categories/_types";
 import { Author } from "@/schemas/author";
 import Select from "react-select";
+import { Controller } from "react-hook-form";
 import AuthorModal from "@/app/(protected)/authors/_components/modal";
 import CategoryModal from "@/app/(protected)/categories/_components/modal";
 import { useBookFormState } from "../../_hooks/useBookFormState";
@@ -16,10 +17,11 @@ interface BookFormProps {
   book?: Book;
   authors?: Author[];
   categories?: Category[];
-  action: (formData: BookFormData) => Promise<void | { error: string }>;
+  action: (
+    formData: BookFormData
+  ) => Promise<{ success: true } | { error: string } | void>;
   submitLabel: string;
-  loading?: boolean;
-  cancel?: () => void;
+  onClose?: () => void;
 }
 
 // TODO: Tag機能を実装したらTagsを追加する
@@ -29,12 +31,18 @@ export default function BookForm({
   categories = [],
   action,
   submitLabel,
-  loading,
-  cancel,
+  onClose,
 }: BookFormProps) {
   // カスタムフックを使用
-  const { register, setValue, handleSubmit, errors, error, onSubmit } =
-    useBookFormState({ book, action });
+  const {
+    register,
+    control,
+    handleSubmit,
+    errors,
+    error,
+    onSubmit,
+    isSubmitting,
+  } = useBookFormState({ book, action, onSuccess: onClose });
 
   const {
     createdAuthors,
@@ -59,10 +67,13 @@ export default function BookForm({
         onSubmit={handleSubmit(onSubmit)}
       >
         {book && (
-          <input
-            {...register("user_id", { valueAsNumber: true })}
-            type="hidden"
-          />
+          <>
+            <input
+              {...register("user_id", { valueAsNumber: true })}
+              type="hidden"
+            />
+            <input {...register("id", { valueAsNumber: true })} type="hidden" />
+          </>
         )}
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -101,22 +112,30 @@ export default function BookForm({
                 + 著者を追加
               </button>
             </div>
-            <Select
-              instanceId="book-authors"
-              inputId="book-authors"
-              isMulti
-              options={createdAuthors.map((a) => ({
-                value: a.id,
-                label: a.name,
-              }))}
-              onChange={(selected) => {
-                setValue(
-                  "author_ids",
-                  selected.map((s) => s.value)
+            <Controller
+              name="author_ids"
+              control={control}
+              render={({ field: { onChange, value, ref } }) => {
+                const options = createdAuthors.map((a) => ({
+                  value: a.id,
+                  label: a.name,
+                }));
+                return (
+                  <Select
+                    ref={ref}
+                    instanceId="book-authors"
+                    inputId="book-authors"
+                    isMulti
+                    options={options}
+                    value={options.filter((c) =>
+                      value?.includes(c.value)
+                    )}
+                    onChange={(val) => onChange(val.map((c) => c.value))}
+                    placeholder="著者を検索・選択"
+                    className="text-sm"
+                  />
                 );
               }}
-              placeholder="著者を検索・選択"
-              className="text-sm"
             />
             {errors.author_ids && (
               <p className="mt-1 text-sm text-red-600">
@@ -246,21 +265,21 @@ export default function BookForm({
         )}
 
         <div className="flex justify-end gap-3">
-          {cancel && (
+          {onClose && (
             <button
               type="button"
               className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
-              onClick={cancel}
+              onClick={onClose}
             >
               キャンセル
             </button>
           )}
           <button
             type="submit"
-            disabled={loading}
+            disabled={isSubmitting}
             className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300"
           >
-            {loading ? "送信中..." : submitLabel}
+            {isSubmitting ? "送信中..." : submitLabel}
           </button>
         </div>
       </form>

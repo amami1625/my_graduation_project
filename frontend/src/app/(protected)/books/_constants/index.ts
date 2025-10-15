@@ -13,3 +13,9 @@ export const RATING_OPTIONS: { value: string; label: string }[] = [
   { value: "4", label: "★★★★" },
   { value: "5", label: "★★★★★" },
 ];
+
+export const STATUS_LABEL: Record<ReadingStatus, string> = {
+  unread: "未読",
+  reading: "読書中",
+  completed: "読了",
+};
