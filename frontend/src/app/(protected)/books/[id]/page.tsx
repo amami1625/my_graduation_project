@@ -19,15 +19,15 @@ export default async function BookPage({ params }: PageProps) {
   ]);
 
   if ("error" in book) {
-    return <ErrorMessage val={book} />;
+    return <ErrorMessage message={book.error} />;
   }
 
   if ("error" in authors) {
-    return <ErrorMessage val={authors} />;
+    return <ErrorMessage message={authors.error} />;
   }
 
   if ("error" in categories) {
-    return <ErrorMessage val={categories} />;
+    return <ErrorMessage message={categories.error} />;
   }
 
   return <BookDetail book={book} authors={authors} categories={categories} />;
