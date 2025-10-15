@@ -8,7 +8,7 @@ interface UseBookFormStateProps {
   action: (
     formData: BookFormData
   ) => Promise<{ success: true } | { error: string } | void>;
-  onSuccess?: () => void; // フォーム送信成功時に呼ばれるコールバック
+  onSuccess: () => void; // フォーム送信成功時に呼ばれるコールバック
 }
 
 export function useBookFormState({
@@ -49,7 +49,7 @@ export function useBookFormState({
         return;
       }
       // 成功時のコールバックを実行
-      if (res && "success" in res && onSuccess) {
+      if (res && "success" in res) {
         onSuccess();
       }
     },

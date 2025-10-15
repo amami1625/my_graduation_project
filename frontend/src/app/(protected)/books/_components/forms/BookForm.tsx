@@ -21,7 +21,7 @@ interface BookFormProps {
     formData: BookFormData
   ) => Promise<{ success: true } | { error: string } | void>;
   submitLabel: string;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
 // TODO: Tag機能を実装したらTagsを追加する
@@ -265,15 +265,13 @@ export default function BookForm({
         )}
 
         <div className="flex justify-end gap-3">
-          {onClose && (
-            <button
-              type="button"
-              className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
-              onClick={onClose}
-            >
-              キャンセル
-            </button>
-          )}
+          <button
+            type="button"
+            className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
+            onClick={onClose}
+          >
+            キャンセル
+          </button>
           <button
             type="submit"
             disabled={isSubmitting}
