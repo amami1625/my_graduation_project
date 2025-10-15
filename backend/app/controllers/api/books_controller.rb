@@ -1,7 +1,7 @@
 class Api::BooksController < Api::ApplicationController
   def index
     books = current_user.books.includes(:category, :authors).order(created_at: :desc)
-    render json: books, include: [:category, :authors]
+    render json: books, include: [:category, :authors], methods: [:author_ids]
   end
 
   def create
@@ -13,9 +13,18 @@ class Api::BooksController < Api::ApplicationController
     end
   end
 
+  def update
+    book = current_user.books.find(params[:id])
+    if book.update(book_params)
+      render json: book, include: [:category, :authors], methods: [:author_ids]
+    else
+      render json: { errors: book.errors }, status: :unprocessable_entity
+    end
+  end
+
   def show
-    book = current_user.books.includes(:category).find(params[:id])
-    render json: book, include: :category
+    book = current_user.books.includes(:category, :authors).find(params[:id])
+    render json: book, include: [:category, :authors], methods: [:author_ids]
   end
 
   private
