@@ -1,4 +1,3 @@
-import PageHeader from "./_components/display/PageHeader";
 import ProfileSidebar from "@/components/ProfileSidebar";
 
 export default function BooksLayout({
@@ -15,10 +14,7 @@ export default function BooksLayout({
 
       {/* メインコンテンツ */}
       <main className="flex-1">
-        <div className="mx-auto max-w-6xl px-4 py-8">
-          <PageHeader />
-          {children}
-        </div>
+        <div className="mx-auto max-w-6xl px-4 py-8">{children}</div>
       </main>
     </div>
   );
