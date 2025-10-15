@@ -27,6 +27,15 @@ class Api::BooksController < Api::ApplicationController
     render json: book, include: [:category, :authors], methods: [:author_ids]
   end
 
+  def destroy
+    book = current_user.books.find(params[:id])
+    if book.destroy
+      head :no_content
+    else
+      render json: { errors: book.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   # TODO: Tag機能を実装したらtagsも追加する

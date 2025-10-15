@@ -7,7 +7,7 @@ export default async function BooksPage() {
   const books = await getBooks();
 
   if ("error" in books) {
-    return <ErrorMessage val={books} />;
+    return <ErrorMessage message={books.error} />;
   }
 
   return (

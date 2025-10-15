@@ -1,12 +1,15 @@
 "use client";
 
-import { useUpdateForm } from "../../_hooks/useUpdateForm";
 import { Book } from "../../_types";
 import { Author } from "@/app/(protected)/authors/types";
 import { Category } from "@/app/(protected)/categories/_types";
+import { useUpdateForm } from "../../_hooks/useUpdateForm";
 import UpdateBookFormModal from "../modal/UpdateBookModal";
 import { STATUS_LABEL } from "../../_constants";
 import { formatRating } from "@/lib/utils/formatRating";
+import ErrorMessage from "@/components/ErrorMessage";
+import { useDeleteBook } from "../../_hooks/useDeleteBook";
+import BookDeleteButton from "./BookDeleteButton";
 
 interface BookDetailProps {
   book: Book;
@@ -20,9 +23,11 @@ export default function BookDetail({
   categories,
 }: BookDetailProps) {
   const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateForm();
+  const { error, handleDelete } = useDeleteBook(book.id);
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-10">
+      {error && <ErrorMessage message={error} />}
       <article className="flex flex-col gap-6 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
         <header className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-3">
@@ -76,16 +81,19 @@ export default function BookDetail({
           </div>
         </section>
 
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            openUpdateForm();
-          }}
-          className="self-start inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-        >
-          編集
-        </button>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              openUpdateForm();
+            }}
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+          >
+            編集
+          </button>
+          <BookDeleteButton onClick={handleDelete} />
+        </div>
       </article>
 
       <UpdateBookFormModal

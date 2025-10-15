@@ -48,6 +48,26 @@ export async function updateBook(
   }
 }
 
+export async function deleteBook(
+  id: number
+): Promise<{ success: true } | { error: string }> {
+  try {
+    await authenticatedRequest(`/books/${id}`, {
+      method: "DELETE",
+    });
+
+    revalidatePath("/books");
+    revalidatePath(`/books/${id}`);
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    } else {
+      return { error: "不明なエラーが発生しました" };
+    }
+  }
+}
+
 // FormDataからBook用のリクエストボディを生成
 function toRequestBody(formData: BookFormData) {
   return {
