@@ -9,7 +9,7 @@ import { STATUS_LABEL } from "../../_constants";
 import { formatRating } from "@/lib/utils/formatRating";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useDeleteBook } from "../../_hooks/useDeleteBook";
-import BookDeleteButton from "./BookDeleteButton";
+import DeleteBookButton from "./DeleteBookButton";
 
 interface BookDetailProps {
   book: Book;
@@ -92,7 +92,7 @@ export default function BookDetail({
           >
             編集
           </button>
-          <BookDeleteButton onClick={handleDelete} />
+          <DeleteBookButton onClick={handleDelete} />
         </div>
       </article>
 
