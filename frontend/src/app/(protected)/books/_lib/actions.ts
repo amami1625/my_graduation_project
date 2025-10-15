@@ -1,13 +1,12 @@
 "use server";
 
 import { authenticatedRequest } from "@/supabase/dal";
-import { redirect } from "next/navigation";
 import { BookFormData } from "../_types";
 import { revalidatePath } from "next/cache";
 
 export async function createBook(
   formData: BookFormData
-): Promise<void | { error: string }> {
+): Promise<{ success: true } | { error: string }> {
   const book = toRequestBody(formData);
 
   try {
@@ -15,6 +14,9 @@ export async function createBook(
       method: "POST",
       body: JSON.stringify({ book }),
     });
+
+    revalidatePath("/books");
+    return { success: true };
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message };
@@ -22,8 +24,6 @@ export async function createBook(
       return { error: "不明なエラーが発生しました" };
     }
   }
-
-  redirect("/books");
 }
 
 export async function updateBook(
