@@ -13,6 +13,11 @@ class Api::ListsController < Api::ApplicationController
     end
   end
 
+  def show
+    list = current_user.lists.find(params[:id])
+    render json: list
+  end
+
   private
 
   def list_params
