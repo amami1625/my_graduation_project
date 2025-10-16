@@ -29,6 +29,9 @@ export default function Header({ isAuthenticated }: HeaderProps) {
                   <Link href="/books">Books</Link>
                 </li>
                 <li className="transition-colors hover:text-gray-900">
+                  <Link href="/lists">Lists</Link>
+                </li>
+                <li className="transition-colors hover:text-gray-900">
                   <LogoutButton />
                 </li>
               </>
