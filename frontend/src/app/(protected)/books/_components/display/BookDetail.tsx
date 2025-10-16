@@ -10,6 +10,7 @@ import { formatRating } from "@/lib/utils/formatRating";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useDeleteBook } from "../../_hooks/useDeleteBook";
 import DeleteBookButton from "./DeleteBookButton";
+import { formatVisibility } from "@/lib/utils/formatVisibility";
 
 interface BookDetailProps {
   book: Book;
@@ -74,6 +75,10 @@ export default function BookDetail({
           <div className="flex flex-col gap-1">
             <span className="font-semibold text-gray-500">登録日</span>
             <span>{book.created_at}</span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="font-semibold text-gray-500">公開/非公開</span>
+            <span>{formatVisibility(book.public)}</span>
           </div>
           <div className="flex flex-col gap-1">
             <span className="font-semibold text-gray-500">ID</span>

@@ -1,6 +1,7 @@
 "use client";
 
 import { List } from "@/app/(protected)/lists/_types";
+import { formatVisibility } from "@/lib/utils/formatVisibility";
 
 interface ListDetailProps {
   list: List;
@@ -33,6 +34,10 @@ export default function ListDetail({ list }: ListDetailProps) {
           <div className="flex flex-col gap-1">
             <span className="font-semibold text-gray-500">登録日</span>
             <span>{list.created_at}</span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="font-semibold text-gray-500">公開/非公開</span>
+            <span>{formatVisibility(list.public)}</span>
           </div>
           <div className="flex flex-col gap-1">
             <span className="font-semibold text-gray-500">ID</span>
