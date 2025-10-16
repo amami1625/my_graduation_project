@@ -5,9 +5,9 @@ export async function getBooks() {
   try {
     const data = await authenticatedRequest("/books");
     return bookSchema.array().parse(data);
-  } catch (errror) {
-    if (errror instanceof Error) {
-      return { error: errror.message };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
     } else {
       return { error: "不明なエラーが発生しました" };
     }
