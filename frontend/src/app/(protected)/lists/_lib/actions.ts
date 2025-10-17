@@ -23,3 +23,23 @@ export async function createList(
     }
   }
 }
+
+export async function updateList(
+  formData: ListFormData
+): Promise<{ success: true } | { error: string }> {
+  try {
+    await authenticatedRequest(`/lists/${formData.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ list: formData }),
+    });
+
+    revalidatePath(`/lists/${formData.id}`);
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    } else {
+      return { error: "不明なエラーが発生しました" };
+    }
+  }
+}

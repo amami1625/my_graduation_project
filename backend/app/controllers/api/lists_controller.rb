@@ -13,6 +13,15 @@ class Api::ListsController < Api::ApplicationController
     end
   end
 
+  def update
+    list = current_user.lists.find(params[:id])
+    if list.update(list_params)
+      render json: list
+    else
+      render json: { error: list.error }, status: :unprocessable_entity
+    end
+  end
+
   def show
     list = current_user.lists.find(params[:id])
     render json: list
