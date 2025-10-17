@@ -10,6 +10,7 @@ interface BookItemProps {
 
 export default function BookItem({ listId, book }: BookItemProps) {
   const { error, handleAdd } = useAddBookModal();
+  const isAdded = book.list_ids.includes(listId);
 
   return (
     <div className="border-b border-gray-200 py-4 last:border-b-0">
@@ -44,7 +45,10 @@ export default function BookItem({ listId, book }: BookItemProps) {
 
         {/* 追加ボタン */}
         <div className="flex-shrink-0">
-          <AddButton onClick={() => handleAdd(listId, book.id)} />
+          <AddButton
+            onClick={() => handleAdd(listId, book.id)}
+            isAdded={isAdded}
+          />
         </div>
       </div>
     </div>
