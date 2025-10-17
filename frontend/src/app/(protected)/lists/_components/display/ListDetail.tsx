@@ -7,6 +7,7 @@ import { useUpdateList } from "../../_hooks/useUpdateList";
 import UpdateButton from "@/components/Buttons/UpdateButton";
 import { useDeleteList } from "../../_hooks/useDeleteList";
 import ErrorMessage from "@/components/ErrorMessage";
+import DeleteButton from "@/components/Buttons/DeleteButton";
 
 interface ListDetailProps {
   list: List;
@@ -56,9 +57,7 @@ export default function ListDetail({ list }: ListDetailProps) {
 
         <div className="flex gap-3">
           <UpdateButton onClick={openUpdateForm} />
-          <button onClick={handleDelete} type="button">
-            削除
-          </button>
+          <DeleteButton onClick={handleDelete} />
         </div>
       </article>
 

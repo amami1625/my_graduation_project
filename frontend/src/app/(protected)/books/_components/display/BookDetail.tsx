@@ -9,9 +9,9 @@ import { STATUS_LABEL } from "../../_constants";
 import { formatRating } from "@/lib/utils/formatRating";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useDeleteBook } from "../../_hooks/useDeleteBook";
-import DeleteBookButton from "./DeleteBookButton";
 import { formatVisibility } from "@/lib/utils/formatVisibility";
 import UpdateButton from "@/components/Buttons/UpdateButton";
+import DeleteButton from "@/components/Buttons/DeleteButton";
 
 interface BookDetailProps {
   book: Book;
@@ -89,7 +89,7 @@ export default function BookDetail({
 
         <div className="flex gap-3">
           <UpdateButton onClick={openUpdateForm} />
-          <DeleteBookButton onClick={handleDelete} />
+          <DeleteButton onClick={handleDelete} />
         </div>
       </article>
 
