@@ -2,12 +2,16 @@
 
 import { List } from "@/app/(protected)/lists/_types";
 import { formatVisibility } from "@/lib/utils/formatVisibility";
+import UpdateListFormModal from "../modal/UpdateListFormModal";
+import { useUpdateList } from "../../_hooks/useUpdateList";
 
 interface ListDetailProps {
   list: List;
 }
 
 export default function ListDetail({ list }: ListDetailProps) {
+  const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateList();
+
   return (
     <section className="mx-auto max-w-4xl px-4 py-10">
       <article className="flex flex-col gap-6 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
@@ -48,12 +52,19 @@ export default function ListDetail({ list }: ListDetailProps) {
         <div className="flex gap-3">
           <button
             type="button"
+            onClick={openUpdateForm}
             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
           >
             編集
           </button>
         </div>
       </article>
+
+      <UpdateListFormModal
+        list={list}
+        isOpen={isUpdateFormOpen}
+        onClose={closeUpdateForm}
+      />
     </section>
   );
 }
