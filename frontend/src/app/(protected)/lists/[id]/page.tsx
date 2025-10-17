@@ -1,6 +1,7 @@
 import ErrorMessage from "@/components/ErrorMessage";
-import { getList } from "../_lib/queries";
 import ListDetail from "../_components/display/ListDetail";
+import { getList } from "../_lib/queries";
+import { getBooks } from "../../books/_lib/queries";
 
 interface ListPageProps {
   params: Promise<{ id: string }>;
@@ -8,12 +9,15 @@ interface ListPageProps {
 
 export default async function ListPage({ params }: ListPageProps) {
   const { id } = await params;
-
-  const list = await getList(id);
+  const [list, books] = await Promise.all([getList(id), getBooks()]);
 
   if ("error" in list) {
     return <ErrorMessage message={list.error} />;
   }
 
-  return <ListDetail list={list} />;
+  if ("error" in books) {
+    return <ErrorMessage message={books.error} />;
+  }
+
+  return <ListDetail list={list} books={books} />;
 }

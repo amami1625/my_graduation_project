@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { categorySchema } from "./category";
 import { authorSchema } from "./author";
+import { listSchema } from "./list";
 
 // Bookのバリデーションスキーマ(APIレスポンス用)
 // TODO: タグ機能実装時にtagsフィールドを追加
@@ -9,6 +10,8 @@ export const bookSchema = z.object({
   title: z.string(),
   description: z.string().nullable(),
   user_id: z.number(),
+  list_ids: z.number().array(),
+  lists: listSchema.array(),
   author_ids: z.number().array(),
   authors: authorSchema.array(),
   category_id: z.number().nullable(),
