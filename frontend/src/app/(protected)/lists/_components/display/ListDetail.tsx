@@ -5,6 +5,9 @@ import { formatVisibility } from "@/lib/utils/formatVisibility";
 import UpdateListFormModal from "../modal/UpdateListFormModal";
 import { useUpdateList } from "../../_hooks/useUpdateList";
 import UpdateButton from "@/components/Buttons/UpdateButton";
+import { useDeleteList } from "../../_hooks/useDeleteList";
+import ErrorMessage from "@/components/ErrorMessage";
+import DeleteButton from "@/components/Buttons/DeleteButton";
 
 interface ListDetailProps {
   list: List;
@@ -12,9 +15,11 @@ interface ListDetailProps {
 
 export default function ListDetail({ list }: ListDetailProps) {
   const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateList();
+  const { error, handleDelete } = useDeleteList(list.id);
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-10">
+      {error && <ErrorMessage message={error} />}
       <article className="flex flex-col gap-6 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
         <header className="flex flex-col gap-3">
           <h1 className="text-2xl font-bold text-gray-900 md:text-3xl">
@@ -52,6 +57,7 @@ export default function ListDetail({ list }: ListDetailProps) {
 
         <div className="flex gap-3">
           <UpdateButton onClick={openUpdateForm} />
+          <DeleteButton onClick={handleDelete} />
         </div>
       </article>
 

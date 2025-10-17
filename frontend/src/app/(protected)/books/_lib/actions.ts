@@ -56,8 +56,6 @@ export async function deleteBook(
       method: "DELETE",
     });
 
-    revalidatePath("/books");
-    revalidatePath(`/books/${id}`);
     return { success: true };
   } catch (error) {
     if (error instanceof Error) {

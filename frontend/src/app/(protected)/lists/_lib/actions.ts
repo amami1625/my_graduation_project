@@ -43,3 +43,21 @@ export async function updateList(
     }
   }
 }
+
+export async function deleteList(
+  id: number
+): Promise<{ success: true } | { error: string }> {
+  try {
+    await authenticatedRequest(`/lists/${id}`, {
+      method: "DELETE",
+    });
+
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    } else {
+      return { error: "不明なエラーが発生しました" };
+    }
+  }
+}

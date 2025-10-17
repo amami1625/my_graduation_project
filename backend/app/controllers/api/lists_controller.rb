@@ -27,6 +27,15 @@ class Api::ListsController < Api::ApplicationController
     render json: list
   end
 
+  def destroy
+    list = current_user.lists.find(params[:id])
+    if list.destroy
+      head :no_content
+    else
+      render json: { errors: list.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def list_params
