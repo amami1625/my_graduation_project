@@ -1,6 +1,6 @@
 interface AddButtonProps {
   onClick: () => void;
-  isAdded: boolean;
+  isAdded?: boolean;
 }
 
 export default function AddButton({ onClick, isAdded }: AddButtonProps) {
