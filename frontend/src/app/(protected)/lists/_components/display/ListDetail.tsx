@@ -8,13 +8,20 @@ import UpdateButton from "@/components/Buttons/UpdateButton";
 import { useDeleteList } from "../../_hooks/useDeleteList";
 import ErrorMessage from "@/components/ErrorMessage";
 import DeleteButton from "@/components/Buttons/DeleteButton";
+import AddBookModal from "@/app/(protected)/listBooks/_components/modal/AddBookModal";
+import { Book } from "@/app/(protected)/books/_types";
+import { useAddBookModal } from "@/app/(protected)/listBooks/_hooks/useAddBookModal";
+import AddButton from "@/components/Buttons/AddButton";
 
 interface ListDetailProps {
   list: List;
+  books: Book[];
 }
 
-export default function ListDetail({ list }: ListDetailProps) {
+export default function ListDetail({ list, books }: ListDetailProps) {
   const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateList();
+  const { isAddBookModalOpen, openAddBookModal, closeAddBookModal } =
+    useAddBookModal();
   const { error, handleDelete } = useDeleteList(list.id);
 
   return (
@@ -58,6 +65,7 @@ export default function ListDetail({ list }: ListDetailProps) {
         <div className="flex gap-3">
           <UpdateButton onClick={openUpdateForm} />
           <DeleteButton onClick={handleDelete} />
+          <AddButton onClick={openAddBookModal} />
         </div>
       </article>
 
@@ -65,6 +73,12 @@ export default function ListDetail({ list }: ListDetailProps) {
         list={list}
         isOpen={isUpdateFormOpen}
         onClose={closeUpdateForm}
+      />
+      <AddBookModal
+        listId={list.id}
+        books={books}
+        isOpen={isAddBookModalOpen}
+        onClose={closeAddBookModal}
       />
     </section>
   );
