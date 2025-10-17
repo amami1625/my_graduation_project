@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_16_103617) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_17_121549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_16_103617) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
+  create_table "list_books", force: :cascade do |t|
+    t.bigint "list_id", null: false
+    t.bigint "book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_list_books_on_book_id"
+    t.index ["list_id", "book_id"], name: "index_list_books_on_list_id_and_book_id", unique: true
+    t.index ["list_id"], name: "index_list_books_on_list_id"
+  end
+
   create_table "lists", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -79,5 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_16_103617) do
   add_foreign_key "books", "categories"
   add_foreign_key "books", "users"
   add_foreign_key "categories", "users"
+  add_foreign_key "list_books", "books"
+  add_foreign_key "list_books", "lists"
   add_foreign_key "lists", "users"
 end
