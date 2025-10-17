@@ -4,6 +4,7 @@ import { List } from "@/app/(protected)/lists/_types";
 import { formatVisibility } from "@/lib/utils/formatVisibility";
 import UpdateListFormModal from "../modal/UpdateListFormModal";
 import { useUpdateList } from "../../_hooks/useUpdateList";
+import UpdateButton from "@/components/Buttons/UpdateButton";
 
 interface ListDetailProps {
   list: List;
@@ -50,13 +51,7 @@ export default function ListDetail({ list }: ListDetailProps) {
         </section>
 
         <div className="flex gap-3">
-          <button
-            type="button"
-            onClick={openUpdateForm}
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-          >
-            編集
-          </button>
+          <UpdateButton onClick={openUpdateForm} />
         </div>
       </article>
 
