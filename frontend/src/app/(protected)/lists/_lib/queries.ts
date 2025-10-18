@@ -1,11 +1,11 @@
-import { listSchema } from "@/schemas/list";
+import { listDetailSchema, listSchema } from "@/schemas/list";
 import { authenticatedRequest } from "@/supabase/dal";
 
 // リストのデータを取得
 export async function getList(id: string) {
   try {
     const data = await authenticatedRequest(`/lists/${id}`);
-    return listSchema.parse(data);
+    return listDetailSchema.parse(data);
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message };
