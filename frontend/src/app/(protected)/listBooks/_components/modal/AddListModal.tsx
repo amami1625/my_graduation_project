@@ -4,22 +4,22 @@ import {
   DialogTitle,
   DialogBackdrop,
 } from "@headlessui/react";
-import { Book } from "@/app/(protected)/books/_types";
-import BookItem from "../display/BookItem";
+import { List } from "@/app/(protected)/lists/_types";
+import ListItem from "../display/ListItem";
 
-interface AddBookModalProps {
-  listId: number;
-  books: Book[];
+interface AddListModalProps {
+  bookId: number;
+  lists: List[];
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function AddBookModal({
-  listId,
-  books,
+export default function AddListModal({
+  bookId,
+  lists,
   isOpen,
   onClose,
-}: AddBookModalProps) {
+}: AddListModalProps) {
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       {/* 背景オーバーレイ */}
@@ -31,12 +31,12 @@ export default function AddBookModal({
           <DialogTitle className="text-xl font-bold mb-4">
             本をリストに追加
           </DialogTitle>
-          {books.length === 0 ? (
-            <p>本が登録されていません</p>
+          {lists.length === 0 ? (
+            <p>リストがありません</p>
           ) : (
             <>
-              {books.map((book) => (
-                <BookItem key={book.id} book={book} listId={listId} />
+              {lists.map((list) => (
+                <ListItem key={list.id} list={list} bookId={bookId} />
               ))}
             </>
           )}

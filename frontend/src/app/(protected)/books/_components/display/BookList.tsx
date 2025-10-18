@@ -3,11 +3,12 @@
 import { Book } from "@/app/(protected)/books/_types";
 import { Author } from "@/app/(protected)/authors/types";
 import { Category } from "@/app/(protected)/categories/_types";
-import EmptyState from "./EmptyState";
+
 import BookCard from "./BookCard";
 import { useCreateBook } from "../../_hooks/useCreateBook";
 import CreateBookFormModal from "../modal/CreateBookModal";
 import CreateBookButton from "./CreateBookButton";
+import EmptyState from "@/components/EmptyState";
 
 interface BookListProps {
   books: Book[];
@@ -29,7 +30,7 @@ export default function BookList({
       </div>
       {books.length === 0 ? (
         // 本が登録されていない場合の表示
-        <EmptyState />
+        <EmptyState element="本"/>
       ) : (
         // 本のリスト表示
         <div className="space-y-3">

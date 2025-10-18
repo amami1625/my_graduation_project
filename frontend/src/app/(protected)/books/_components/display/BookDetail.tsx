@@ -1,6 +1,7 @@
 "use client";
 
 import { Book } from "../../_types";
+import { List } from "@/app/(protected)/lists/_types";
 import { Author } from "@/app/(protected)/authors/types";
 import { Category } from "@/app/(protected)/categories/_types";
 import { useUpdateForm } from "../../_hooks/useUpdateForm";
@@ -12,19 +13,26 @@ import { useDeleteBook } from "../../_hooks/useDeleteBook";
 import { formatVisibility } from "@/lib/utils/formatVisibility";
 import UpdateButton from "@/components/Buttons/UpdateButton";
 import DeleteButton from "@/components/Buttons/DeleteButton";
+import AddListModal from "@/app/(protected)/listBooks/_components/modal/AddListModal";
+import { useAddListModal } from "@/app/(protected)/listBooks/_hooks/useAddListModal";
+import AddButton from "@/components/Buttons/AddButton";
 
 interface BookDetailProps {
   book: Book;
+  lists: List[];
   authors: Author[];
   categories: Category[];
 }
 
 export default function BookDetail({
   book,
+  lists,
   authors,
   categories,
 }: BookDetailProps) {
   const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateForm();
+  const { isAddListModalOpen, opneAddListModal, closeAddListModal } =
+    useAddListModal();
   const { error, handleDelete } = useDeleteBook(book.id);
 
   return (
@@ -90,6 +98,7 @@ export default function BookDetail({
         <div className="flex gap-3">
           <UpdateButton onClick={openUpdateForm} />
           <DeleteButton onClick={handleDelete} />
+          <AddButton onClick={opneAddListModal} />
         </div>
       </article>
 
@@ -99,6 +108,12 @@ export default function BookDetail({
         categories={categories}
         isOpen={isUpdateFormOpen}
         onClose={closeUpdateForm}
+      />
+      <AddListModal
+        bookId={book.id}
+        lists={lists}
+        isOpen={isAddListModalOpen}
+        onClose={closeAddListModal}
       />
     </section>
   );
