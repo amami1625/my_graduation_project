@@ -31,9 +31,15 @@ export default function AddBookModal({
           <DialogTitle className="text-xl font-bold mb-4">
             本をリストに追加
           </DialogTitle>
-          {books.map((book) => (
-            <BookItem key={book.id} book={book} listId={listId} />
-          ))}
+          {books.length === 0 ? (
+            <p>本が登録されていません</p>
+          ) : (
+            <>
+              {books.map((book) => (
+                <BookItem key={book.id} book={book} listId={listId} />
+              ))}
+            </>
+          )}
         </DialogPanel>
       </div>
     </Dialog>

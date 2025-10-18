@@ -31,9 +31,15 @@ export default function AddListModal({
           <DialogTitle className="text-xl font-bold mb-4">
             本をリストに追加
           </DialogTitle>
-          {lists.map((list) => (
-            <ListItem key={list.id} list={list} bookId={bookId} />
-          ))}
+          {lists.length === 0 ? (
+            <p>リストがありません</p>
+          ) : (
+            <>
+              {lists.map((list) => (
+                <ListItem key={list.id} list={list} bookId={bookId} />
+              ))}
+            </>
+          )}
         </DialogPanel>
       </div>
     </Dialog>
