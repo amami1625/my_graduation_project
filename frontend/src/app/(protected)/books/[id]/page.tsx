@@ -3,6 +3,7 @@ import { getAuthors } from "@/app/(protected)/authors/_lib/queries";
 import { getCategories } from "@/app/(protected)/categories/_lib/queries";
 import BookDetail from "../_components/display/BookDetail";
 import ErrorMessage from "@/components/ErrorMessage";
+import { getLists } from "../../lists/_lib/queries";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -12,14 +13,19 @@ export default async function BookPage({ params }: PageProps) {
   const { id } = await params;
 
   // すべてのデータを並列取得
-  const [book, authors, categories] = await Promise.all([
+  const [book, lists, authors, categories] = await Promise.all([
     getBook(id),
+    getLists(),
     getAuthors(),
     getCategories(),
   ]);
 
   if ("error" in book) {
     return <ErrorMessage message={book.error} />;
+  }
+  
+  if ("error" in lists) {
+    return <ErrorMessage message={lists.error} />;
   }
 
   if ("error" in authors) {
@@ -30,5 +36,12 @@ export default async function BookPage({ params }: PageProps) {
     return <ErrorMessage message={categories.error} />;
   }
 
-  return <BookDetail book={book} authors={authors} categories={categories} />;
+  return (
+    <BookDetail
+      book={book}
+      lists={lists}
+      authors={authors}
+      categories={categories}
+    />
+  );
 }
