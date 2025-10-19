@@ -1,5 +1,5 @@
 import { authenticatedRequest } from "@/supabase/dal";
-import { bookSchema, bookDetailSchema  } from "../_types";
+import { bookSchema } from "../_types";
 
 // Book一覧取得
 export async function getBooks() {
@@ -19,7 +19,7 @@ export async function getBooks() {
 export async function getBook(id: string) {
   try {
     const data = await authenticatedRequest(`/books/${id}`);
-    return bookDetailSchema.parse(data);
+    return bookSchema.parse(data);
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message };

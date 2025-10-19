@@ -1,4 +1,4 @@
-import { listSchema, listDetailSchema } from "@/app/(protected)/lists/_types";
+import { listSchema, listDetailSchema } from "@/schemas/list";
 import { authenticatedRequest } from "@/supabase/dal";
 
 // リストのデータを取得
