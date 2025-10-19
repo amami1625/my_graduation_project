@@ -8,10 +8,11 @@ import { useAddBookModal } from "@/app/(protected)/listBooks/_hooks/useAddBookMo
 import { formatVisibility } from "@/lib/utils/formatVisibility";
 import UpdateListFormModal from "../modal/UpdateListFormModal";
 import AddBookModal from "@/app/(protected)/listBooks/_components/modal/AddBookModal";
+import AddedBooksView from "@/app/(protected)/lists/_components/display/AddedBooksView";
 import UpdateButton from "@/components/Buttons/UpdateButton";
-import ErrorMessage from "@/components/ErrorMessage";
 import DeleteButton from "@/components/Buttons/DeleteButton";
 import AddButton from "@/components/Buttons/AddButton";
+import ErrorMessage from "@/components/ErrorMessage";
 
 interface ListDetailProps {
   list: ListDetail;
@@ -67,6 +68,8 @@ export default function ListDetailView({ list, books }: ListDetailProps) {
           <DeleteButton onClick={handleDelete} />
           <AddButton onClick={openAddBookModal} />
         </div>
+
+        <AddedBooksView books={list.books} />
       </article>
 
       <UpdateListFormModal

@@ -1,6 +1,6 @@
 "use client";
 
-import { Book } from "../../_types";
+import { Book } from "@/app/(protected)/books/_types";
 import { List } from "@/app/(protected)/lists/_types";
 import { Author } from "@/app/(protected)/authors/types";
 import { Category } from "@/app/(protected)/categories/_types";
@@ -16,6 +16,7 @@ import DeleteButton from "@/components/Buttons/DeleteButton";
 import AddListModal from "@/app/(protected)/listBooks/_components/modal/AddListModal";
 import { useAddListModal } from "@/app/(protected)/listBooks/_hooks/useAddListModal";
 import AddButton from "@/components/Buttons/AddButton";
+import AddedListsView from "@/app/(protected)/books/_components/display/AddedListsView";
 
 interface BookDetailProps {
   book: Book;
@@ -100,6 +101,8 @@ export default function BookDetail({
           <DeleteButton onClick={handleDelete} />
           <AddButton onClick={opneAddListModal} />
         </div>
+
+        <AddedListsView lists={book.lists} />
       </article>
 
       <UpdateBookFormModal
