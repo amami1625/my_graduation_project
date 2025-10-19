@@ -1,7 +1,7 @@
 import ErrorMessage from "@/components/ErrorMessage";
-import ListDetail from "../_components/display/ListDetail";
-import { getList } from "../_lib/queries";
-import { getBooks } from "../../books/_lib/queries";
+import ListDetailView from "@/app/(protected)/lists/_components/display/ListDetailView";
+import { getList } from "@/app/(protected)/lists/_lib/queries";
+import { getBooks } from "@/app/(protected)/books/_lib/queries";
 
 interface ListPageProps {
   params: Promise<{ id: string }>;
@@ -19,5 +19,5 @@ export default async function ListPage({ params }: ListPageProps) {
     return <ErrorMessage message={books.error} />;
   }
 
-  return <ListDetail list={list} books={books} />;
+  return <ListDetailView list={list} books={books} />;
 }
