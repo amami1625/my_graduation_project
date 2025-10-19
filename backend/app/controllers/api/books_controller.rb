@@ -23,8 +23,15 @@ class Api::BooksController < Api::ApplicationController
   end
 
   def show
-    book = current_user.books.includes(:category, :authors, :lists).find(params[:id])
-    render json: book, include: [:category, :authors, :lists], methods: [:author_ids, :list_ids]
+    book = current_user.books.includes(:category, :authors, :lists, :list_books).find(params[:id])
+    render json: book,
+           include: {
+             category: {},
+             authors: {},
+             lists: {},
+             list_books: { only: [:id, :book_id, :list_id] }
+           },
+           methods: [:author_ids, :list_ids]
   end
 
   def destroy
