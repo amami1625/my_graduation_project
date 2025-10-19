@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get "hello/index", to: "hello#index"
     resources :books, only: %i[index create update show destroy]
     resources :lists, only: %i[index create update show destroy]
-    resources :list_books, only: %i[create]
+    resources :list_books, only: %i[create destroy]
     resources :authors, only: %i[index create]
     resources :categories, only: %i[index create]
     resource :profile, only: %i[show]

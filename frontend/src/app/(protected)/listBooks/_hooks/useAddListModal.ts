@@ -5,7 +5,7 @@ export const useAddListModal = () => {
   const [error, setError] = useState("");
   const [isAddListModalOpen, setIsAddListModalOpen] = useState(false);
 
-  const opneAddListModal = useCallback(() => setIsAddListModalOpen(true), []);
+  const openAddListModal = useCallback(() => setIsAddListModalOpen(true), []);
   const closeAddListModal = useCallback(() => setIsAddListModalOpen(false), []);
 
   const handleAdd = async (list_id: number, book_id: number) => {
@@ -21,7 +21,7 @@ export const useAddListModal = () => {
     error,
     handleAdd,
     isAddListModalOpen,
-    opneAddListModal,
+    openAddListModal,
     closeAddListModal,
   };
 };

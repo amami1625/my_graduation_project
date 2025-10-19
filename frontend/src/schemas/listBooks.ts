@@ -6,4 +6,10 @@ export const listBookFormSchema = z.object({
   book_id: z.number(),
 });
 
+// ListBookのスキーマ(APIレスポンス用)
+export const listBookSchema = listBookFormSchema.extend({
+  id: z.number(),
+});
+
+export type ListBook = z.infer<typeof listBookSchema>;
 export type ListBookFormData = z.infer<typeof listBookFormSchema>;

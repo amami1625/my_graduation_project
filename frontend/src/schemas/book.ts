@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { categorySchema } from "./category";
 import { authorSchema } from "./author";
+import { listBookSchema } from "@/app/(protected)/listBooks/_types";
 
 // Bookベーススキーマ
 // TODO: タグ機能実装時にtagsフィールドを追加
@@ -27,7 +28,7 @@ export const bookBaseSchema = z.object({
   }),
 });
 
-// Book一覧・詳細データのバリデーションスキーマ(APIレスポンス用)
+// Book一覧データのバリデーションスキーマ(APIレスポンス用)
 export const bookSchema = bookBaseSchema.extend({
   author_ids: z.number().array(),
   list_ids: z.number().array(),
@@ -39,6 +40,11 @@ export const bookSchema = bookBaseSchema.extend({
         public: z.boolean(),
       })
     ),
+});
+
+// Book詳細データのバリデーションスキーマ(APIレスポンス用)
+export const bookDetailSchema = bookSchema.extend({
+  list_books: z.array(listBookSchema),
 });
 
 // Bookのバリデーションスキーマ(フォーム用)
@@ -62,4 +68,5 @@ export const bookFormSchema = z.object({
 });
 
 export type Book = z.infer<typeof bookSchema>;
+export type BookDetail = z.infer<typeof bookDetailSchema>;
 export type BookFormData = z.infer<typeof bookFormSchema>;
