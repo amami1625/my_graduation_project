@@ -3,12 +3,17 @@
 import { AddedBook } from "@/app/(protected)/lists/_types";
 import AddedBookItem from "@/app/(protected)/lists/_components/display/AddedBookItem";
 import EmptyState from "@/components/EmptyState";
+import { ListBook } from "@/app/(protected)/listBooks/_types";
 
 interface AddedBooksViewProps {
   books: AddedBook[];
+  bookLists: ListBook[];
 }
 
-export default function AddedBooksView({ books }: AddedBooksViewProps) {
+export default function AddedBooksView({
+  books,
+  bookLists,
+}: AddedBooksViewProps) {
   return (
     <section className="space-y-4">
       {/* 見出し */}
@@ -19,9 +24,19 @@ export default function AddedBooksView({ books }: AddedBooksViewProps) {
         <EmptyState element="本" context="detail" />
       ) : (
         <div className="rounded-lg border border-gray-200 bg-white">
-          {books.map((book) => (
-            <AddedBookItem key={book.id} book={book} />
-          ))}
+          {books.map((book) => {
+            const listBook = bookLists.find((lb) => lb.book_id === book.id);
+            if (!listBook) return null;
+
+            return (
+              <AddedBookItem
+                key={book.id}
+                book={book}
+                bookListId={listBook.id}
+                listId={listBook.list_id}
+              />
+            );
+          })}
         </div>
       )}
     </section>
