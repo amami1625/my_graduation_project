@@ -7,17 +7,17 @@ import ErrorMessage from "@/components/ErrorMessage";
 
 interface AddedBookProps {
   book: AddedBook;
-  bookListId: number;
+  listBookId: number;
   listId: number;
 }
 
 export default function AddedBookItem({
   book,
-  bookListId,
+  listBookId,
   listId,
 }: AddedBookProps) {
   const { error, handleRemove } = useRemoveBook({
-    listBookId: bookListId,
+    listBookId,
     context: "list",
     listId,
   });

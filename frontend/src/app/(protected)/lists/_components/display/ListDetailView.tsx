@@ -69,7 +69,7 @@ export default function ListDetailView({ list, books }: ListDetailProps) {
           <AddButton onClick={openAddBookModal} />
         </div>
 
-        <AddedBooksView books={list.books} bookLists={list.list_books} />
+        <AddedBooksView books={list.books} listBooks={list.list_books} />
       </article>
 
       <UpdateListFormModal

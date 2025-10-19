@@ -7,12 +7,12 @@ import { ListBook } from "@/app/(protected)/listBooks/_types";
 
 interface AddedBooksViewProps {
   books: AddedBook[];
-  bookLists: ListBook[];
+  listBooks: ListBook[];
 }
 
 export default function AddedBooksView({
   books,
-  bookLists,
+  listBooks,
 }: AddedBooksViewProps) {
   return (
     <section className="space-y-4">
@@ -25,14 +25,14 @@ export default function AddedBooksView({
       ) : (
         <div className="rounded-lg border border-gray-200 bg-white">
           {books.map((book) => {
-            const listBook = bookLists.find((lb) => lb.book_id === book.id);
+            const listBook = listBooks.find((lb) => lb.book_id === book.id);
             if (!listBook) return null;
 
             return (
               <AddedBookItem
                 key={book.id}
                 book={book}
-                bookListId={listBook.id}
+                listBookId={listBook.id}
                 listId={listBook.list_id}
               />
             );
