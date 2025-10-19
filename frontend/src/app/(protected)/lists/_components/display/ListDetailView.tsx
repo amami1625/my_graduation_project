@@ -1,24 +1,25 @@
 "use client";
 
-import { List } from "@/app/(protected)/lists/_types";
+import { ListDetail } from "@/app/(protected)/lists/_types";
+import { Book } from "@/app/(protected)/books/_types";
+import { useUpdateList } from "@/app/(protected)/lists/_hooks/useUpdateList";
+import { useDeleteList } from "@/app/(protected)/lists/_hooks/useDeleteList";
+import { useAddBookModal } from "@/app/(protected)/listBooks/_hooks/useAddBookModal";
 import { formatVisibility } from "@/lib/utils/formatVisibility";
 import UpdateListFormModal from "../modal/UpdateListFormModal";
-import { useUpdateList } from "../../_hooks/useUpdateList";
-import UpdateButton from "@/components/Buttons/UpdateButton";
-import { useDeleteList } from "../../_hooks/useDeleteList";
-import ErrorMessage from "@/components/ErrorMessage";
-import DeleteButton from "@/components/Buttons/DeleteButton";
 import AddBookModal from "@/app/(protected)/listBooks/_components/modal/AddBookModal";
-import { Book } from "@/app/(protected)/books/_types";
-import { useAddBookModal } from "@/app/(protected)/listBooks/_hooks/useAddBookModal";
+import AddedBooksView from "@/app/(protected)/lists/_components/display/AddedBooksView";
+import UpdateButton from "@/components/Buttons/UpdateButton";
+import DeleteButton from "@/components/Buttons/DeleteButton";
 import AddButton from "@/components/Buttons/AddButton";
+import ErrorMessage from "@/components/ErrorMessage";
 
 interface ListDetailProps {
-  list: List;
+  list: ListDetail;
   books: Book[];
 }
 
-export default function ListDetail({ list, books }: ListDetailProps) {
+export default function ListDetailView({ list, books }: ListDetailProps) {
   const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateList();
   const { isAddBookModalOpen, openAddBookModal, closeAddBookModal } =
     useAddBookModal();
@@ -67,6 +68,8 @@ export default function ListDetail({ list, books }: ListDetailProps) {
           <DeleteButton onClick={handleDelete} />
           <AddButton onClick={openAddBookModal} />
         </div>
+
+        <AddedBooksView books={list.books} />
       </article>
 
       <UpdateListFormModal

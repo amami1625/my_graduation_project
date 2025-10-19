@@ -1,12 +1,12 @@
 import { z } from "zod";
+import { bookBaseSchema } from "./book";
 
-// List一覧データのバリデーションスキーマ(APIレスポンス用)
-export const listSchema = z.object({
+// Listベーススキーマ
+export const listBaseSchema = z.object({
   id: z.number(),
   name: z.string(),
   description: z.string().nullable(),
   user_id: z.number(),
-  book_ids: z.number().array(),
   public: z.boolean(),
   created_at: z.string().transform((str) => {
     return new Date(str).toLocaleString("ja-JP", {
@@ -20,17 +20,14 @@ export const listSchema = z.object({
   }),
 });
 
-// List詳細データ用のスキーマ(APIレスポンス用)
+// List一覧データのバリデーションスキーマ(APIレスポンス用)
+export const listSchema = listBaseSchema.extend({
+  book_ids: z.number().array(),
+});
+
+// List詳細データのバリデーションスキーマ(APIレスポンス用)
 export const listDetailSchema = listSchema.extend({
-  books: z.array(
-    z.lazy(() =>
-      require("./book").bookDetailSchema.omit({
-        list_ids: true,
-        author_ids: true,
-        lists: true,
-      })
-    )
-  ),
+  books: z.array(bookBaseSchema),
 });
 
 // Listのバリデーションスキーマ(フォーム用)
@@ -45,6 +42,7 @@ export const listFormSchema = z.object({
   public: z.boolean(),
 });
 
+export type ListBase = z.infer<typeof listBaseSchema>;
 export type List = z.infer<typeof listSchema>;
 export type ListDetail = z.infer<typeof listDetailSchema>;
 export type ListFormData = z.infer<typeof listFormSchema>;
