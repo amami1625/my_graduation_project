@@ -2,14 +2,13 @@ import { z } from "zod";
 import { categorySchema } from "./category";
 import { authorSchema } from "./author";
 
-// Bookベーススキーマ（循環参照を含まない基本フィールド）
+// Bookベーススキーマ
 // TODO: タグ機能実装時にtagsフィールドを追加
 export const bookBaseSchema = z.object({
   id: z.number(),
   title: z.string(),
   description: z.string().nullable(),
   user_id: z.number(),
-  author_ids: z.number().array(),
   authors: authorSchema.array(),
   category_id: z.number().nullable(),
   category: categorySchema.optional(),
@@ -28,8 +27,9 @@ export const bookBaseSchema = z.object({
   }),
 });
 
-// Book一覧データのバリデーションスキーマ(APIレスポンス用)
+// Book一覧・詳細データのバリデーションスキーマ(APIレスポンス用)
 export const bookSchema = bookBaseSchema.extend({
+  author_ids: z.number().array(),
   list_ids: z.number().array(),
   lists: z
     .array(
@@ -38,8 +38,7 @@ export const bookSchema = bookBaseSchema.extend({
         name: z.string(),
         public: z.boolean(),
       })
-    )
-    .optional(),
+    ),
 });
 
 // Bookのバリデーションスキーマ(フォーム用)

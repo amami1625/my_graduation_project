@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { bookBaseSchema } from "./book";
 
-// Listベーススキーマ（循環参照を含まない基本フィールド）
+// Listベーススキーマ
 export const listBaseSchema = z.object({
   id: z.number(),
   name: z.string(),
@@ -24,6 +25,11 @@ export const listSchema = listBaseSchema.extend({
   book_ids: z.number().array(),
 });
 
+// List詳細データのバリデーションスキーマ(APIレスポンス用)
+export const listDetailSchema = listSchema.extend({
+  books: z.array(bookBaseSchema),
+});
+
 // Listのバリデーションスキーマ(フォーム用)
 export const listFormSchema = z.object({
   id: z.number().optional(),
@@ -36,5 +42,7 @@ export const listFormSchema = z.object({
   public: z.boolean(),
 });
 
+export type ListBase = z.infer<typeof listBaseSchema>;
 export type List = z.infer<typeof listSchema>;
+export type ListDetail = z.infer<typeof listDetailSchema>;
 export type ListFormData = z.infer<typeof listFormSchema>;
