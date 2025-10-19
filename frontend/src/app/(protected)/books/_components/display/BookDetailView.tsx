@@ -32,7 +32,7 @@ export default function BookDetailView({
   categories,
 }: BookDetailProps) {
   const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateForm();
-  const { isAddListModalOpen, opneAddListModal, closeAddListModal } =
+  const { isAddListModalOpen, openAddListModal, closeAddListModal } =
     useAddListModal();
   const { error, handleDelete } = useDeleteBook(book.id);
 
@@ -99,10 +99,10 @@ export default function BookDetailView({
         <div className="flex gap-3">
           <UpdateButton onClick={openUpdateForm} />
           <DeleteButton onClick={handleDelete} />
-          <AddButton onClick={opneAddListModal} />
+          <AddButton onClick={openAddListModal} />
         </div>
 
-        <AddedListsView lists={book.lists} listBooks={book.list_books}/>
+        <AddedListsView lists={book.lists} listBooks={book.list_books} />
       </article>
 
       <UpdateBookFormModal
