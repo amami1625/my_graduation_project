@@ -1,6 +1,6 @@
 "use client";
 
-import { Book } from "@/app/(protected)/books/_types";
+import { BookDetail } from "@/app/(protected)/books/_types";
 import { List } from "@/app/(protected)/lists/_types";
 import { Author } from "@/app/(protected)/authors/types";
 import { Category } from "@/app/(protected)/categories/_types";
@@ -19,13 +19,13 @@ import AddButton from "@/components/Buttons/AddButton";
 import AddedListsView from "@/app/(protected)/books/_components/display/AddedListsView";
 
 interface BookDetailProps {
-  book: Book;
+  book: BookDetail;
   lists: List[];
   authors: Author[];
   categories: Category[];
 }
 
-export default function BookDetail({
+export default function BookDetailView({
   book,
   lists,
   authors,
@@ -102,7 +102,7 @@ export default function BookDetail({
           <AddButton onClick={opneAddListModal} />
         </div>
 
-        <AddedListsView lists={book.lists} />
+        <AddedListsView lists={book.lists} listBooks={book.list_books}/>
       </article>
 
       <UpdateBookFormModal

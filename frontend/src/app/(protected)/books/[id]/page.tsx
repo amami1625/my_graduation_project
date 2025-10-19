@@ -1,7 +1,7 @@
 import { getBook } from "../_lib/queries";
 import { getAuthors } from "@/app/(protected)/authors/_lib/queries";
 import { getCategories } from "@/app/(protected)/categories/_lib/queries";
-import BookDetail from "../_components/display/BookDetail";
+import BookDetailView from "../_components/display/BookDetailView";
 import ErrorMessage from "@/components/ErrorMessage";
 import { getLists } from "../../lists/_lib/queries";
 
@@ -23,7 +23,7 @@ export default async function BookPage({ params }: PageProps) {
   if ("error" in book) {
     return <ErrorMessage message={book.error} />;
   }
-  
+
   if ("error" in lists) {
     return <ErrorMessage message={lists.error} />;
   }
@@ -37,7 +37,7 @@ export default async function BookPage({ params }: PageProps) {
   }
 
   return (
-    <BookDetail
+    <BookDetailView
       book={book}
       lists={lists}
       authors={authors}
