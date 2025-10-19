@@ -1,1 +1,1 @@
-export { type ListBookFormData, listBookFormSchema } from "@/schemas/listBooks";
+export { type ListBook, type ListBookFormData, listBookSchema, listBookFormSchema } from "@/schemas/listBooks";

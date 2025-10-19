@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { bookBaseSchema } from "./book";
+import { listBookSchema } from "./listBooks";
 
 // Listベーススキーマ
 export const listBaseSchema = z.object({
@@ -28,6 +29,7 @@ export const listSchema = listBaseSchema.extend({
 // List詳細データのバリデーションスキーマ(APIレスポンス用)
 export const listDetailSchema = listSchema.extend({
   books: z.array(bookBaseSchema),
+  list_books: z.array(listBookSchema),
 });
 
 // Listのバリデーションスキーマ(フォーム用)
