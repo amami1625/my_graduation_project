@@ -1,6 +1,7 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
+import unusedImports from 'eslint-plugin-unused-imports';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,18 +18,25 @@ const eslintConfig = [
   // Prettier統合：ESLintのスタイルルールを無効化してPrettierに任せる
   ...compat.extends('plugin:prettier/recommended'),
   {
+    plugins: {
+      'unused-imports': unusedImports,
+    },
     rules: {
-      // 未使用の変数を検出
-      '@typescript-eslint/no-unused-vars': [
+      // 未使用の変数を検出（unused-importsプラグインを使用）
+      '@typescript-eslint/no-unused-vars': 'off', // unused-importsに任せるため無効化
+      'no-unused-vars': 'off', // unused-importsに任せるため無効化
+      'unused-imports/no-unused-imports': 'error', // 未使用のインポートを自動削除
+      'unused-imports/no-unused-vars': [
         'error',
         {
-          argsIgnorePattern: '^_', // _で始まる引数は許可（意図的に未使用の場合）
+          vars: 'all',
           varsIgnorePattern: '^_', // _で始まる変数は許可
+          args: 'after-used',
+          argsIgnorePattern: '^_', // _で始まる引数は許可
+          caughtErrors: 'all',
           caughtErrorsIgnorePattern: '^_', // _で始まるエラー変数は許可
         },
       ],
-      // 未使用のインポートを検出
-      'no-unused-vars': 'off', // TypeScript版を使うのでJavaScript版は無効化
       // console.logを禁止（warn/error/debugは許可）
       'no-console': [
         'warn',
