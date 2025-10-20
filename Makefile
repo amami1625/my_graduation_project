@@ -45,3 +45,11 @@ web:
 # PostgreSQLコンテナにアクセス
 db:
 	docker compose exec db psql -U postgres -d app_development
+
+# ES Lintを実行
+lint:
+	docker compose exec web npm run lint
+
+# Prettierでフォーマットを統一
+fmt:
+	docker compose exec web npm run format
