@@ -20,6 +20,28 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      // 未使用の変数を検出
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_", // _で始まる引数は許可（意図的に未使用の場合）
+          varsIgnorePattern: "^_", // _で始まる変数は許可
+          caughtErrorsIgnorePattern: "^_", // _で始まるエラー変数は許可
+        },
+      ],
+      // 未使用のインポートを検出
+      "no-unused-vars": "off", // TypeScript版を使うのでJavaScript版は無効化
+      // console.logを禁止（warn/error/debugは許可）
+      "no-console": [
+        "warn",
+        {
+          allow: ["warn", "error", "debug"],
+        },
+      ],
+    },
+  },
 ];
 
 export default eslintConfig;
