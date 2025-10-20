@@ -2,7 +2,7 @@
 
 import { List } from '@/app/(protected)/lists/_types';
 import { useCreateList } from '@/app/(protected)/lists/_hooks/useCreateList';
-import CreateListButton from '@/app/(protected)/lists/_components/display/CreateListButton';
+import { CreateButton } from '@/components/Buttons';
 import CreateListFormModal from '@/app/(protected)/lists/_components/modal/CreateListFormModal';
 import ListCard from '@/app/(protected)/lists/_components/display/ListCard';
 import EmptyState from '@/components/EmptyState';
@@ -17,7 +17,7 @@ export default function Lists({ lists }: ListProps) {
   return (
     <>
       <div className="mb-6 flex justify-end">
-        <CreateListButton onClick={openCreateForm} />
+        <CreateButton onClick={openCreateForm} />
       </div>
       {lists.length === 0 ? (
         <EmptyState element="リスト" />

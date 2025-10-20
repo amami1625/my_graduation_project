@@ -11,11 +11,9 @@ import { formatRating } from '@/lib/utils/formatRating';
 import ErrorMessage from '@/components/ErrorMessage';
 import { useDeleteBook } from '../../_hooks/useDeleteBook';
 import { formatVisibility } from '@/lib/utils/formatVisibility';
-import UpdateButton from '@/components/Buttons/UpdateButton';
-import DeleteButton from '@/components/Buttons/DeleteButton';
+import { UpdateButton, DeleteButton, AddButton } from '@/components/Buttons';
 import AddListModal from '@/app/(protected)/listBooks/_components/modal/AddListModal';
 import { useAddListModal } from '@/app/(protected)/listBooks/_hooks/useAddListModal';
-import AddButton from '@/components/Buttons/AddButton';
 import AddedListsView from '@/app/(protected)/books/_components/display/AddedListsView';
 
 interface BookDetailProps {

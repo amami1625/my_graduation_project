@@ -7,7 +7,7 @@ import { Category } from '@/app/(protected)/categories/_types';
 import BookCard from './BookCard';
 import { useCreateBook } from '../../_hooks/useCreateBook';
 import CreateBookFormModal from '../modal/CreateBookModal';
-import CreateBookButton from './CreateBookButton';
+import { CreateButton } from '@/components/Buttons';
 import EmptyState from '@/components/EmptyState';
 
 interface BookListProps {
@@ -22,7 +22,7 @@ export default function BookList({ books, authors, categories }: BookListProps) 
   return (
     <>
       <div className="mb-6 flex justify-end">
-        <CreateBookButton onClick={openCreateForm} />
+        <CreateButton onClick={openCreateForm} />
       </div>
       {books.length === 0 ? (
         // 本が登録されていない場合の表示
