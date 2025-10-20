@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { LoginFormData } from "@/schemas/auth";
-import { createServerSupabaseClient } from "@/supabase/clients/server";
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { LoginFormData } from '@/schemas/auth';
+import { createServerSupabaseClient } from '@/supabase/clients/server';
 
 export async function loginAction(formData: LoginFormData) {
   const supabase = await createServerSupabaseClient();
@@ -14,8 +14,8 @@ export async function loginAction(formData: LoginFormData) {
     return { error: error.message };
   }
 
-  revalidatePath("/", "layout");
-  redirect("/top");
+  revalidatePath('/', 'layout');
+  redirect('/top');
 }
 
 export async function logoutAction() {
@@ -23,15 +23,11 @@ export async function logoutAction() {
 
   await supabase.auth.signOut();
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  revalidatePath('/', 'layout');
+  redirect('/');
 }
 
-export async function signUpAction(
-  name: string,
-  email: string,
-  password: string
-) {
+export async function signUpAction(name: string, email: string, password: string) {
   const supabase = await createServerSupabaseClient();
 
   const { error } = await supabase.auth.signUp({
@@ -39,15 +35,15 @@ export async function signUpAction(
     password,
     options: {
       data: {
-        name: name || "",
+        name: name || '',
       },
     },
   });
 
   if (error) {
-    return { error: "登録に失敗しました。入力内容を確認してください。" };
+    return { error: '登録に失敗しました。入力内容を確認してください。' };
   }
 
-  revalidatePath("/", "layout");
-  redirect("/top");
+  revalidatePath('/', 'layout');
+  redirect('/top');
 }

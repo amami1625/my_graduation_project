@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { Book } from "../../_types";
-import { User, Tag, Clock, ChevronRight } from "lucide-react";
+import Link from 'next/link';
+import { Book } from '../../_types';
+import { User, Tag, Clock, ChevronRight } from 'lucide-react';
 
 export default function BookCard({ book }: { book: Book }) {
   return (
@@ -20,9 +20,7 @@ export default function BookCard({ book }: { book: Book }) {
 
           {/* 説明 */}
           {book.description && (
-            <p className="mb-3 text-sm text-gray-600 line-clamp-2">
-              {book.description}
-            </p>
+            <p className="mb-3 text-sm text-gray-600 line-clamp-2">{book.description}</p>
           )}
 
           {/* メタ情報 */}
@@ -31,9 +29,7 @@ export default function BookCard({ book }: { book: Book }) {
             {book.authors && book.authors.length > 0 && (
               <div className="flex items-center gap-1">
                 <User className="h-4 w-4" />
-                <span>
-                  {book.authors.map((author) => author.name).join(", ")}
-                </span>
+                <span>{book.authors.map((author) => author.name).join(', ')}</span>
               </div>
             )}
 

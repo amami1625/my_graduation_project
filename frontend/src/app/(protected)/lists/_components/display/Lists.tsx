@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { List } from "@/app/(protected)/lists/_types";
-import { useCreateList } from "@/app/(protected)/lists/_hooks/useCreateList";
-import CreateListButton from "@/app/(protected)/lists/_components/display/CreateListButton";
-import CreateListFormModal from "@/app/(protected)/lists/_components/modal/CreateListFormModal";
-import ListCard from "@/app/(protected)/lists/_components/display/ListCard";
-import EmptyState from "@/components/EmptyState";
+import { List } from '@/app/(protected)/lists/_types';
+import { useCreateList } from '@/app/(protected)/lists/_hooks/useCreateList';
+import CreateListButton from '@/app/(protected)/lists/_components/display/CreateListButton';
+import CreateListFormModal from '@/app/(protected)/lists/_components/modal/CreateListFormModal';
+import ListCard from '@/app/(protected)/lists/_components/display/ListCard';
+import EmptyState from '@/components/EmptyState';
 
 interface ListProps {
   lists: List[];
@@ -28,10 +28,7 @@ export default function Lists({ lists }: ListProps) {
           ))}
         </div>
       )}
-      <CreateListFormModal
-        isOpen={isCreateFormOpen}
-        onClose={closeCreateForm}
-      />
+      <CreateListFormModal isOpen={isCreateFormOpen} onClose={closeCreateForm} />
     </>
   );
 }

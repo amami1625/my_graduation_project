@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { ListDetail } from "@/app/(protected)/lists/_types";
-import { Book } from "@/app/(protected)/books/_types";
-import { useUpdateList } from "@/app/(protected)/lists/_hooks/useUpdateList";
-import { useDeleteList } from "@/app/(protected)/lists/_hooks/useDeleteList";
-import { useAddBookModal } from "@/app/(protected)/listBooks/_hooks/useAddBookModal";
-import { formatVisibility } from "@/lib/utils/formatVisibility";
-import UpdateListFormModal from "../modal/UpdateListFormModal";
-import AddBookModal from "@/app/(protected)/listBooks/_components/modal/AddBookModal";
-import AddedBooksView from "@/app/(protected)/lists/_components/display/AddedBooksView";
-import UpdateButton from "@/components/Buttons/UpdateButton";
-import DeleteButton from "@/components/Buttons/DeleteButton";
-import AddButton from "@/components/Buttons/AddButton";
-import ErrorMessage from "@/components/ErrorMessage";
+import { ListDetail } from '@/app/(protected)/lists/_types';
+import { Book } from '@/app/(protected)/books/_types';
+import { useUpdateList } from '@/app/(protected)/lists/_hooks/useUpdateList';
+import { useDeleteList } from '@/app/(protected)/lists/_hooks/useDeleteList';
+import { useAddBookModal } from '@/app/(protected)/listBooks/_hooks/useAddBookModal';
+import { formatVisibility } from '@/lib/utils/formatVisibility';
+import UpdateListFormModal from '../modal/UpdateListFormModal';
+import AddBookModal from '@/app/(protected)/listBooks/_components/modal/AddBookModal';
+import AddedBooksView from '@/app/(protected)/lists/_components/display/AddedBooksView';
+import UpdateButton from '@/components/Buttons/UpdateButton';
+import DeleteButton from '@/components/Buttons/DeleteButton';
+import AddButton from '@/components/Buttons/AddButton';
+import ErrorMessage from '@/components/ErrorMessage';
 
 interface ListDetailProps {
   list: ListDetail;
@@ -21,8 +21,7 @@ interface ListDetailProps {
 
 export default function ListDetailView({ list, books }: ListDetailProps) {
   const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateList();
-  const { isAddBookModalOpen, openAddBookModal, closeAddBookModal } =
-    useAddBookModal();
+  const { isAddBookModalOpen, openAddBookModal, closeAddBookModal } = useAddBookModal();
   const { error, handleDelete } = useDeleteList(list.id);
 
   return (
@@ -30,17 +29,13 @@ export default function ListDetailView({ list, books }: ListDetailProps) {
       {error && <ErrorMessage message={error} />}
       <article className="flex flex-col gap-6 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
         <header className="flex flex-col gap-3">
-          <h1 className="text-2xl font-bold text-gray-900 md:text-3xl">
-            {list.name}
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900 md:text-3xl">{list.name}</h1>
         </header>
 
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-400">
-            概要
-          </h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-400">概要</h2>
           <p className="whitespace-pre-line text-base leading-relaxed text-gray-700">
-            {list.description || "説明が登録されていません。"}
+            {list.description || '説明が登録されていません。'}
           </p>
         </section>
 
@@ -72,11 +67,7 @@ export default function ListDetailView({ list, books }: ListDetailProps) {
         <AddedBooksView books={list.books} listBooks={list.list_books} />
       </article>
 
-      <UpdateListFormModal
-        list={list}
-        isOpen={isUpdateFormOpen}
-        onClose={closeUpdateForm}
-      />
+      <UpdateListFormModal list={list} isOpen={isUpdateFormOpen} onClose={closeUpdateForm} />
       <AddBookModal
         listId={list.id}
         books={books}

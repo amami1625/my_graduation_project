@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 export const useUpdateList = () => {
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState(false);

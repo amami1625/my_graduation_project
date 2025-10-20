@@ -1,19 +1,16 @@
-"use client";
+'use client';
 
-import { AddedBook } from "@/app/(protected)/lists/_types";
-import AddedBookItem from "@/app/(protected)/lists/_components/display/AddedBookItem";
-import EmptyState from "@/components/EmptyState";
-import { ListBook } from "@/app/(protected)/listBooks/_types";
+import { AddedBook } from '@/app/(protected)/lists/_types';
+import AddedBookItem from '@/app/(protected)/lists/_components/display/AddedBookItem';
+import EmptyState from '@/components/EmptyState';
+import { ListBook } from '@/app/(protected)/listBooks/_types';
 
 interface AddedBooksViewProps {
   books: AddedBook[];
   listBooks: ListBook[];
 }
 
-export default function AddedBooksView({
-  books,
-  listBooks,
-}: AddedBooksViewProps) {
+export default function AddedBooksView({ books, listBooks }: AddedBooksViewProps) {
   return (
     <section className="space-y-4">
       {/* 見出し */}

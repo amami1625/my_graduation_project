@@ -1,16 +1,16 @@
-import { authenticatedRequest } from "@/supabase/dal";
-import { bookSchema, bookDetailSchema } from "../_types";
+import { authenticatedRequest } from '@/supabase/dal';
+import { bookSchema, bookDetailSchema } from '../_types';
 
 // Book一覧取得
 export async function getBooks() {
   try {
-    const data = await authenticatedRequest("/books");
+    const data = await authenticatedRequest('/books');
     return bookSchema.array().parse(data);
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message };
     } else {
-      return { error: "不明なエラーが発生しました" };
+      return { error: '不明なエラーが発生しました' };
     }
   }
 }
@@ -24,7 +24,7 @@ export async function getBook(id: string) {
     if (error instanceof Error) {
       return { error: error.message };
     } else {
-      return { error: "不明なエラーが発生しました" };
+      return { error: '不明なエラーが発生しました' };
     }
   }
 }

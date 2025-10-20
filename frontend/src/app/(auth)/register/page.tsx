@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { RegisterFormData, registerSchema } from "@/schemas/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpAction } from "@/app/(auth)/_lib";
+import Link from 'next/link';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { RegisterFormData, registerSchema } from '@/schemas/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signUpAction } from '@/app/(auth)/_lib';
 
 export default function RegisterPage() {
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const {
@@ -21,7 +21,7 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: RegisterFormData) => {
     setLoading(true);
-    setError("");
+    setError('');
 
     const result = await signUpAction(data.name, data.email, data.password);
 
@@ -39,11 +39,8 @@ export default function RegisterPage() {
             Supabase認証で新規登録
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            または{" "}
-            <Link
-              href="/supabase-login"
-              className="font-medium text-blue-600 hover:text-blue-500"
-            >
+            または{' '}
+            <Link href="/supabase-login" className="font-medium text-blue-600 hover:text-blue-500">
               ログイン
             </Link>
           </p>
@@ -58,15 +55,11 @@ export default function RegisterPage() {
               <input
                 id="name"
                 type="text"
-                {...register("name")}
+                {...register('name')}
                 className="relative block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                 placeholder="ユーザー名"
               />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.name.message}
-                </p>
-              )}
+              {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
             </div>
             <div>
               <label htmlFor="email" className="sr-only">
@@ -76,15 +69,11 @@ export default function RegisterPage() {
                 id="email"
                 type="text"
                 inputMode="email"
-                {...register("email")}
+                {...register('email')}
                 className="relative block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                 placeholder="メールアドレス"
               />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.email.message}
-                </p>
-              )}
+              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
@@ -93,14 +82,12 @@ export default function RegisterPage() {
               <input
                 id="password"
                 type="password"
-                {...register("password")}
+                {...register('password')}
                 className="relative block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                 placeholder="パスワード"
               />
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.password.message}
-                </p>
+                <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
               )}
             </div>
             <div>
@@ -110,14 +97,12 @@ export default function RegisterPage() {
               <input
                 id="password-confirmation"
                 type="password"
-                {...register("passwordConfirmation")}
+                {...register('passwordConfirmation')}
                 className="relative block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                 placeholder="パスワード確認"
               />
               {errors.passwordConfirmation && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.passwordConfirmation.message}
-                </p>
+                <p className="mt-1 text-sm text-red-600">{errors.passwordConfirmation.message}</p>
               )}
             </div>
           </div>
@@ -134,7 +119,7 @@ export default function RegisterPage() {
               disabled={loading}
               className="group relative flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:bg-blue-300"
             >
-              {loading ? "登録中..." : "登録"}
+              {loading ? '登録中...' : '登録'}
             </button>
           </div>
         </form>

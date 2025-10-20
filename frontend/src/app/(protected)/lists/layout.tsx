@@ -1,10 +1,6 @@
-import ProfileSidebar from "@/components/ProfileSidebar";
+import ProfileSidebar from '@/components/ProfileSidebar';
 
-export default function BooksLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function BooksLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen gap-6">
       {/* サイドバー */}

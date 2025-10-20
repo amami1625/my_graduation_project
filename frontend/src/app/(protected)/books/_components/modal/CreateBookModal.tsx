@@ -1,13 +1,8 @@
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  DialogBackdrop,
-} from "@headlessui/react";
-import BookForm from "../forms/BookForm";
-import { createBook } from "../../_lib/actions";
-import { Author } from "@/app/(protected)/authors/types";
-import { Category } from "@/app/(protected)/categories/_types";
+import { Dialog, DialogPanel, DialogTitle, DialogBackdrop } from '@headlessui/react';
+import BookForm from '../forms/BookForm';
+import { createBook } from '../../_lib/actions';
+import { Author } from '@/app/(protected)/authors/types';
+import { Category } from '@/app/(protected)/categories/_types';
 
 interface CreateBookFormModalProps {
   authors: Author[];
