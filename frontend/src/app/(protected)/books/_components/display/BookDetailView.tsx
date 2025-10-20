@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { BookDetail } from "@/app/(protected)/books/_types";
-import { List } from "@/app/(protected)/lists/_types";
-import { Author } from "@/app/(protected)/authors/types";
-import { Category } from "@/app/(protected)/categories/_types";
-import { useUpdateForm } from "../../_hooks/useUpdateForm";
-import UpdateBookFormModal from "../modal/UpdateBookModal";
-import { STATUS_LABEL } from "../../_constants";
-import { formatRating } from "@/lib/utils/formatRating";
-import ErrorMessage from "@/components/ErrorMessage";
-import { useDeleteBook } from "../../_hooks/useDeleteBook";
-import { formatVisibility } from "@/lib/utils/formatVisibility";
-import UpdateButton from "@/components/Buttons/UpdateButton";
-import DeleteButton from "@/components/Buttons/DeleteButton";
-import AddListModal from "@/app/(protected)/listBooks/_components/modal/AddListModal";
-import { useAddListModal } from "@/app/(protected)/listBooks/_hooks/useAddListModal";
-import AddButton from "@/components/Buttons/AddButton";
-import AddedListsView from "@/app/(protected)/books/_components/display/AddedListsView";
+import { BookDetail } from '@/app/(protected)/books/_types';
+import { List } from '@/app/(protected)/lists/_types';
+import { Author } from '@/app/(protected)/authors/types';
+import { Category } from '@/app/(protected)/categories/_types';
+import { useUpdateForm } from '../../_hooks/useUpdateForm';
+import UpdateBookFormModal from '../modal/UpdateBookModal';
+import { STATUS_LABEL } from '../../_constants';
+import { formatRating } from '@/lib/utils/formatRating';
+import ErrorMessage from '@/components/ErrorMessage';
+import { useDeleteBook } from '../../_hooks/useDeleteBook';
+import { formatVisibility } from '@/lib/utils/formatVisibility';
+import UpdateButton from '@/components/Buttons/UpdateButton';
+import DeleteButton from '@/components/Buttons/DeleteButton';
+import AddListModal from '@/app/(protected)/listBooks/_components/modal/AddListModal';
+import { useAddListModal } from '@/app/(protected)/listBooks/_hooks/useAddListModal';
+import AddButton from '@/components/Buttons/AddButton';
+import AddedListsView from '@/app/(protected)/books/_components/display/AddedListsView';
 
 interface BookDetailProps {
   book: BookDetail;
@@ -25,15 +25,9 @@ interface BookDetailProps {
   categories: Category[];
 }
 
-export default function BookDetailView({
-  book,
-  lists,
-  authors,
-  categories,
-}: BookDetailProps) {
+export default function BookDetailView({ book, lists, authors, categories }: BookDetailProps) {
   const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateForm();
-  const { isAddListModalOpen, openAddListModal, closeAddListModal } =
-    useAddListModal();
+  const { isAddListModalOpen, openAddListModal, closeAddListModal } = useAddListModal();
   const { error, handleDelete } = useDeleteBook(book.id);
 
   return (
@@ -51,12 +45,10 @@ export default function BookDetailView({
               </span>
             )}
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 md:text-3xl">
-            {book.title}
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900 md:text-3xl">{book.title}</h1>
           {book.authors && (
             <p className="text-sm font-medium text-gray-500">
-              著者名:{" "}
+              著者名:{' '}
               {book.authors.map((author) => (
                 <span key={author.id}>{author.name}</span>
               ))}
@@ -65,11 +57,9 @@ export default function BookDetailView({
         </header>
 
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-400">
-            概要
-          </h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-400">概要</h2>
           <p className="whitespace-pre-line text-base leading-relaxed text-gray-700">
-            {book.description || "説明が登録されていません。"}
+            {book.description || '説明が登録されていません。'}
           </p>
         </section>
 

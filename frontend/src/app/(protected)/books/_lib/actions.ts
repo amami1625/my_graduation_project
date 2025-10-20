@@ -1,39 +1,39 @@
-"use server";
+'use server';
 
-import { authenticatedRequest } from "@/supabase/dal";
-import { BookFormData } from "../_types";
-import { revalidatePath } from "next/cache";
+import { authenticatedRequest } from '@/supabase/dal';
+import { BookFormData } from '../_types';
+import { revalidatePath } from 'next/cache';
 
 export async function createBook(
-  formData: BookFormData
+  formData: BookFormData,
 ): Promise<{ success: true } | { error: string }> {
   const book = toRequestBody(formData);
 
   try {
-    await authenticatedRequest("/books", {
-      method: "POST",
+    await authenticatedRequest('/books', {
+      method: 'POST',
       body: JSON.stringify({ book }),
     });
 
-    revalidatePath("/books");
+    revalidatePath('/books');
     return { success: true };
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message };
     } else {
-      return { error: "不明なエラーが発生しました" };
+      return { error: '不明なエラーが発生しました' };
     }
   }
 }
 
 export async function updateBook(
-  formData: BookFormData
+  formData: BookFormData,
 ): Promise<{ success: true } | { error: string }> {
   const book = toRequestBody(formData);
 
   try {
     await authenticatedRequest(`/books/${book.id}`, {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({ book }),
     });
 
@@ -43,17 +43,15 @@ export async function updateBook(
     if (error instanceof Error) {
       return { error: error.message };
     } else {
-      return { error: "不明なエラーが発生しました" };
+      return { error: '不明なエラーが発生しました' };
     }
   }
 }
 
-export async function deleteBook(
-  id: number
-): Promise<{ success: true } | { error: string }> {
+export async function deleteBook(id: number): Promise<{ success: true } | { error: string }> {
   try {
     await authenticatedRequest(`/books/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     });
 
     return { success: true };
@@ -61,7 +59,7 @@ export async function deleteBook(
     if (error instanceof Error) {
       return { error: error.message };
     } else {
-      return { error: "不明なエラーが発生しました" };
+      return { error: '不明なエラーが発生しました' };
     }
   }
 }

@@ -1,6 +1,6 @@
 # Makefile for React + Rails Docker development environment
 
-.PHONY: help up down build logs ps shell-app shell-web shell-db
+.PHONY: help up down build logs ps app web db lint fix fmt
 
 # デフォルトターゲット - ヘルプを表示
 help:
@@ -10,9 +10,12 @@ help:
 	@echo "  make build    - Build containers and start in background"
 	@echo "  make logs     - Show logs from all containers"
 	@echo "  make ps       - Show running containers status"
-	@echo "  make shell-app - Access Rails container shell"
-	@echo "  make shell-web - Access Next container shell"
-	@echo "  make shell-db  - Access PostgreSQL container shell"
+	@echo "  make app      - Access Rails container shell"
+	@echo "  make web      - Access Next container shell"
+	@echo "  make db       - Access PostgreSQL container shell"
+	@echo "  make lint     - Run ESLint to check code quality"
+	@echo "  make fix      - Run ESLint with auto-fix"
+	@echo "  make fmt      - Run Prettier to format code"
 
 # コンテナを起動（バックグラウンド）
 up:
@@ -45,3 +48,15 @@ web:
 # PostgreSQLコンテナにアクセス
 db:
 	docker compose exec db psql -U postgres -d app_development
+
+# ESLintを実行
+lint:
+	docker compose exec web npm run lint
+
+# ESLintで自動修正
+fix:
+	docker compose exec web npm run lint:fix
+
+# Prettierでフォーマットを統一
+fmt:
+	docker compose exec web npm run format

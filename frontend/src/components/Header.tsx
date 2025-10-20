@@ -1,5 +1,5 @@
-import { LogoutButton } from "@/app/(auth)/logout/LogoutButton";
-import Link from "next/link";
+import { LogoutButton } from '@/app/(auth)/logout/LogoutButton';
+import Link from 'next/link';
 
 interface HeaderProps {
   isAuthenticated?: boolean;

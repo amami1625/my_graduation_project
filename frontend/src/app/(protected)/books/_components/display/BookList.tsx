@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Book } from "@/app/(protected)/books/_types";
-import { Author } from "@/app/(protected)/authors/types";
-import { Category } from "@/app/(protected)/categories/_types";
+import { Book } from '@/app/(protected)/books/_types';
+import { Author } from '@/app/(protected)/authors/types';
+import { Category } from '@/app/(protected)/categories/_types';
 
-import BookCard from "./BookCard";
-import { useCreateBook } from "../../_hooks/useCreateBook";
-import CreateBookFormModal from "../modal/CreateBookModal";
-import CreateBookButton from "./CreateBookButton";
-import EmptyState from "@/components/EmptyState";
+import BookCard from './BookCard';
+import { useCreateBook } from '../../_hooks/useCreateBook';
+import CreateBookFormModal from '../modal/CreateBookModal';
+import CreateBookButton from './CreateBookButton';
+import EmptyState from '@/components/EmptyState';
 
 interface BookListProps {
   books: Book[];
@@ -16,11 +16,7 @@ interface BookListProps {
   categories: Category[];
 }
 
-export default function BookList({
-  books,
-  authors,
-  categories,
-}: BookListProps) {
+export default function BookList({ books, authors, categories }: BookListProps) {
   const { isCreateFormOpen, openCreateForm, closeCreateForm } = useCreateBook();
 
   return (
@@ -30,7 +26,7 @@ export default function BookList({
       </div>
       {books.length === 0 ? (
         // 本が登録されていない場合の表示
-        <EmptyState element="本"/>
+        <EmptyState element="本" />
       ) : (
         // 本のリスト表示
         <div className="space-y-3">

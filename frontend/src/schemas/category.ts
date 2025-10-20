@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 // categoryのバリデーションスキーマ(APIレスポンス用)
 export const categorySchema = z.object({
@@ -6,13 +6,13 @@ export const categorySchema = z.object({
   name: z.string(),
   user_id: z.number(),
   created_at: z.string().transform((str) => {
-    return new Date(str).toLocaleString("ja-JP", {
-      timeZone: "Asia/Tokyo",
+    return new Date(str).toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo',
     });
   }),
   updated_at: z.string().transform((str) => {
-    return new Date(str).toLocaleString("ja-JP", {
-      timeZone: "Asia/Tokyo",
+    return new Date(str).toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo',
     });
   }),
 });
@@ -21,8 +21,8 @@ export const categorySchema = z.object({
 export const categoryFormSchema = z.object({
   name: z
     .string()
-    .min(1, "カテゴリ名を入力してください")
-    .max(100, "カテゴリ名は100文字以内で入力してください"),
+    .min(1, 'カテゴリ名を入力してください')
+    .max(100, 'カテゴリ名は100文字以内で入力してください'),
 });
 
 export type Category = z.infer<typeof categorySchema>;

@@ -1,9 +1,9 @@
-import { getProfileData } from "./_lib/queries";
+import { getProfileData } from './_lib/queries';
 
 export default async function TopPage() {
   const profileData = await getProfileData();
 
-  if ("error" in profileData) {
+  if ('error' in profileData) {
     return <p>{profileData.error}</p>;
   }
 

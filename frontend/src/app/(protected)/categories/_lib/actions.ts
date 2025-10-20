@@ -1,14 +1,14 @@
-"use server";
+'use server';
 
-import { authenticatedRequest } from "@/supabase/dal";
-import { Category, CategoryFormData, categorySchema } from "../_types";
+import { authenticatedRequest } from '@/supabase/dal';
+import { Category, CategoryFormData, categorySchema } from '../_types';
 
 export async function createCategory(
-  formData: CategoryFormData
+  formData: CategoryFormData,
 ): Promise<Category | { error: string }> {
   try {
-    const category = await authenticatedRequest("/categories", {
-      method: "POST",
+    const category = await authenticatedRequest('/categories', {
+      method: 'POST',
       body: JSON.stringify({ category: formData }),
     });
     return categorySchema.parse(category);
@@ -16,7 +16,7 @@ export async function createCategory(
     if (error instanceof Error) {
       return { error: error.message };
     } else {
-      return { error: "不明なエラーが発生しました" };
+      return { error: '不明なエラーが発生しました' };
     }
   }
 }

@@ -1,14 +1,9 @@
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  DialogBackdrop,
-} from "@headlessui/react";
-import BookForm from "../forms/BookForm";
-import { updateBook } from "../../_lib/actions";
-import { Book } from "@/app/(protected)/books/_types";
-import { Author } from "@/app/(protected)/authors/types";
-import { Category } from "@/app/(protected)/categories/_types";
+import { Dialog, DialogPanel, DialogTitle, DialogBackdrop } from '@headlessui/react';
+import BookForm from '../forms/BookForm';
+import { updateBook } from '../../_lib/actions';
+import { Book } from '@/app/(protected)/books/_types';
+import { Author } from '@/app/(protected)/authors/types';
+import { Category } from '@/app/(protected)/categories/_types';
 
 interface UpdateBookFormModalProps {
   book: Book;

@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { List } from "@/app/(protected)/lists/_types";
-import { ChevronRight, Clock } from "lucide-react";
+import Link from 'next/link';
+import { List } from '@/app/(protected)/lists/_types';
+import { ChevronRight, Clock } from 'lucide-react';
 
 interface ListCardProps {
   list: List;
@@ -23,9 +23,7 @@ export default function ListCard({ list }: ListCardProps) {
 
           {/* 説明 */}
           {list.description && (
-            <p className="mb-3 text-sm text-gray-600 line-clamp-2">
-              {list.description}
-            </p>
+            <p className="mb-3 text-sm text-gray-600 line-clamp-2">{list.description}</p>
           )}
 
           {/* メタ情報 */}

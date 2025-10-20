@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { logoutAction } from "@/app/(auth)/_lib";
+import { logoutAction } from '@/app/(auth)/_lib';
 
 export function LogoutButton() {
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!confirm("ログアウトしますか？")) {
+    if (!confirm('ログアウトしますか？')) {
       e.preventDefault();
       return;
     }

@@ -1,12 +1,7 @@
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  DialogBackdrop,
-} from "@headlessui/react";
-import AuthorForm from "../forms";
-import { createAuthor } from "../../_lib/actions";
-import { Author } from "../../types";
+import { Dialog, DialogPanel, DialogTitle, DialogBackdrop } from '@headlessui/react';
+import AuthorForm from '../forms';
+import { createAuthor } from '../../_lib/actions';
+import { Author } from '../../types';
 
 interface AuthorModalProps {
   isOpen: boolean;
@@ -14,11 +9,7 @@ interface AuthorModalProps {
   setCreatedAuthors: React.Dispatch<React.SetStateAction<Author[]>>;
 }
 
-export default function AuthorModal({
-  isOpen,
-  onClose,
-  setCreatedAuthors,
-}: AuthorModalProps) {
+export default function AuthorModal({ isOpen, onClose, setCreatedAuthors }: AuthorModalProps) {
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       {/* 背景オーバーレイ */}
@@ -27,9 +18,7 @@ export default function AuthorModal({
       {/* モーダル配置 */}
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel className="mx-auto max-w-md w-full rounded-2xl bg-white p-6 shadow-xl">
-          <DialogTitle className="text-xl font-bold mb-4">
-            著者を追加
-          </DialogTitle>
+          <DialogTitle className="text-xl font-bold mb-4">著者を追加</DialogTitle>
 
           <AuthorForm
             action={createAuthor}

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { AddedBook } from "@/app/(protected)/lists/_types";
-import { useRemoveBook } from "@/app/(protected)/listBooks/_hooks/useRemoveBook";
-import RemoveButton from "@/components/Buttons/RemoveButton";
-import ErrorMessage from "@/components/ErrorMessage";
+import { AddedBook } from '@/app/(protected)/lists/_types';
+import { useRemoveBook } from '@/app/(protected)/listBooks/_hooks/useRemoveBook';
+import RemoveButton from '@/components/Buttons/RemoveButton';
+import ErrorMessage from '@/components/ErrorMessage';
 
 interface AddedBookProps {
   book: AddedBook;
@@ -11,14 +11,10 @@ interface AddedBookProps {
   listId: number;
 }
 
-export default function AddedBookItem({
-  book,
-  listBookId,
-  listId,
-}: AddedBookProps) {
+export default function AddedBookItem({ book, listBookId, listId }: AddedBookProps) {
   const { error, handleRemove } = useRemoveBook({
     listBookId,
-    context: "list",
+    context: 'list',
     listId,
   });
 
@@ -28,16 +24,14 @@ export default function AddedBookItem({
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
           {/* タイトル */}
-          <h3 className="text-base font-semibold text-gray-900 mb-2 truncate">
-            {book.title}
-          </h3>
+          <h3 className="text-base font-semibold text-gray-900 mb-2 truncate">{book.title}</h3>
 
           {/* 著者 */}
           {book.authors.length > 0 && (
             <div className="flex items-center gap-1 mb-1">
               <span className="text-xs text-gray-500">著者:</span>
               <p className="text-sm text-gray-700">
-                {book.authors.map((author) => author.name).join(", ")}
+                {book.authors.map((author) => author.name).join(', ')}
               </p>
             </div>
           )}

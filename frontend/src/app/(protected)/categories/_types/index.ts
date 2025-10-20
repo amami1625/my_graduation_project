@@ -3,4 +3,4 @@ export {
   type CategoryFormData,
   categorySchema,
   categoryFormSchema,
-} from "@/schemas/category";
+} from '@/schemas/category';

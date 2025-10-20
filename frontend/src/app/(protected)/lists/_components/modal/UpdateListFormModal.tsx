@@ -1,12 +1,7 @@
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  DialogBackdrop,
-} from "@headlessui/react";
-import ListForm from "@/app/(protected)/lists/_components/form";
-import { List } from "@/app/(protected)/lists/_types";
-import { updateList } from "@/app/(protected)/lists/_lib/actions";
+import { Dialog, DialogPanel, DialogTitle, DialogBackdrop } from '@headlessui/react';
+import ListForm from '@/app/(protected)/lists/_components/form';
+import { List } from '@/app/(protected)/lists/_types';
+import { updateList } from '@/app/(protected)/lists/_lib/actions';
 
 interface UpdateListFormModalProps {
   list: List;
@@ -14,11 +9,7 @@ interface UpdateListFormModalProps {
   onClose: () => void;
 }
 
-export default function UpdateListFormModal({
-  list,
-  isOpen,
-  onClose,
-}: UpdateListFormModalProps) {
+export default function UpdateListFormModal({ list, isOpen, onClose }: UpdateListFormModalProps) {
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       {/* 背景オーバーレイ */}
@@ -27,16 +18,9 @@ export default function UpdateListFormModal({
       {/* モーダル配置 */}
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel className="mx-auto max-w-md w-full rounded-2xl bg-white p-6 shadow-xl">
-          <DialogTitle className="text-xl font-bold mb-4">
-            リストを編集
-          </DialogTitle>
+          <DialogTitle className="text-xl font-bold mb-4">リストを編集</DialogTitle>
 
-          <ListForm
-            list={list}
-            action={updateList}
-            submitLabel="編集"
-            onClose={onClose}
-          />
+          <ListForm list={list} action={updateList} submitLabel="編集" onClose={onClose} />
         </DialogPanel>
       </div>
     </Dialog>

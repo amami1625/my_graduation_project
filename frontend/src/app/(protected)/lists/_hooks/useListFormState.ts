@@ -1,27 +1,21 @@
-import { useCallback, useState } from "react";
-import { List, ListFormData, listFormSchema } from "../_types";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useCallback, useState } from 'react';
+import { List, ListFormData, listFormSchema } from '../_types';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 interface UseListFormStateProps {
   list?: List;
-  action: (
-    formData: ListFormData
-  ) => Promise<{ success: true } | { error: string } | void>;
+  action: (formData: ListFormData) => Promise<{ success: true } | { error: string } | void>;
   onSuccess: () => void;
 }
 
-export function useListFormState({
-  list,
-  action,
-  onSuccess,
-}: UseListFormStateProps) {
-  const [error, setError] = useState("");
+export function useListFormState({ list, action, onSuccess }: UseListFormStateProps) {
+  const [error, setError] = useState('');
 
   const defaultValues: ListFormData = {
     id: list?.id,
-    name: list?.name ?? "",
-    description: list?.description ?? "",
+    name: list?.name ?? '',
+    description: list?.description ?? '',
     user_id: list?.user_id,
     public: list?.public ?? false,
   };
@@ -29,15 +23,15 @@ export function useListFormState({
   const onSubmit = useCallback(
     async (data: ListFormData) => {
       const res = await action(data);
-      if (res && "error" in res) {
+      if (res && 'error' in res) {
         setError(res.error);
         return;
       }
-      if (res && "success" in res) {
+      if (res && 'success' in res) {
         onSuccess();
       }
     },
-    [action, onSuccess]
+    [action, onSuccess],
   );
 
   const {

@@ -1,7 +1,7 @@
-import AddButton from "@/components/Buttons/AddButton";
-import ErrorMessage from "@/components/ErrorMessage";
-import { List } from "@/app/(protected)/lists/_types";
-import { useAddListModal } from "../../_hooks/useAddListModal";
+import AddButton from '@/components/Buttons/AddButton';
+import ErrorMessage from '@/components/ErrorMessage';
+import { List } from '@/app/(protected)/lists/_types';
+import { useAddListModal } from '../../_hooks/useAddListModal';
 
 interface ListItemProps {
   list: List;
@@ -18,17 +18,12 @@ export default function Listitem({ list, bookId }: ListItemProps) {
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
           {/* タイトル */}
-          <h3 className="text-base font-semibold text-gray-900 mb-2 truncate">
-            {list.name}
-          </h3>
+          <h3 className="text-base font-semibold text-gray-900 mb-2 truncate">{list.name}</h3>
         </div>
 
         {/* 追加ボタン */}
         <div className="flex-shrink-0">
-          <AddButton
-            onClick={() => handleAdd(list.id, bookId)}
-            isAdded={isAdded}
-          />
+          <AddButton onClick={() => handleAdd(list.id, bookId)} isAdded={isAdded} />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import { listSchema, listDetailSchema } from "@/schemas/list";
-import { authenticatedRequest } from "@/supabase/dal";
+import { listSchema, listDetailSchema } from '@/schemas/list';
+import { authenticatedRequest } from '@/supabase/dal';
 
 // リストのデータを取得
 export async function getList(id: string) {
@@ -10,7 +10,7 @@ export async function getList(id: string) {
     if (error instanceof Error) {
       return { error: error.message };
     } else {
-      return { error: "不明なエラーが発生しました" };
+      return { error: '不明なエラーが発生しました' };
     }
   }
 }
@@ -18,13 +18,13 @@ export async function getList(id: string) {
 // リスト一覧を取得
 export async function getLists() {
   try {
-    const data = await authenticatedRequest("/lists");
+    const data = await authenticatedRequest('/lists');
     return listSchema.array().parse(data);
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message };
     } else {
-      return { error: "不明なエラーが発生しました" };
+      return { error: '不明なエラーが発生しました' };
     }
   }
 }

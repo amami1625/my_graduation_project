@@ -7,11 +7,6 @@ export {
   listSchema,
   listDetailSchema,
   listFormSchema,
-} from "@/schemas/list";
+} from '@/schemas/list';
 
-export {
-  type AddedBook,
-  type AddedList,
-  addedBookSchema,
-  addedListSchema,
-} from "@/schemas/nested";
+export { type AddedBook, type AddedList, addedBookSchema, addedListSchema } from '@/schemas/nested';

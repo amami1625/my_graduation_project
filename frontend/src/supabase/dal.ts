@@ -1,7 +1,7 @@
-import "server-only";
-import { cache } from "react";
-import { notFound, redirect } from "next/navigation";
-import { createServerSupabaseClient } from "./clients/server";
+import 'server-only';
+import { cache } from 'react';
+import { notFound, redirect } from 'next/navigation';
+import { createServerSupabaseClient } from './clients/server';
 
 export const verifySession = cache(async () => {
   const supabase = await createServerSupabaseClient();
@@ -14,7 +14,7 @@ export const verifySession = cache(async () => {
 
   // 認証エラーまたは未認証の場合はログインページへリダイレクト
   if (error || !user) {
-    redirect("/login");
+    redirect('/login');
   }
 
   // 検証済みと確認できたのでセッション取得（access_token用）
@@ -27,21 +27,21 @@ export const verifySession = cache(async () => {
 
 export async function authenticatedRequest(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<unknown> {
   const { session } = await verifySession();
 
   if (!session?.access_token) {
-    throw new Error("ログインが必要です");
+    throw new Error('ログインが必要です');
   }
 
   // APIエンドポイントURLを構築
   const baseUrl = process.env.API_BASE_URL;
-  const url = endpoint.startsWith("http") ? endpoint : `${baseUrl}${endpoint}`;
+  const url = endpoint.startsWith('http') ? endpoint : `${baseUrl}${endpoint}`;
 
   // ヘッダーに認証トークンを追加
   const headers: Record<string, string> = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${session.access_token}`,
     ...(options.headers as Record<string, string>),
   };
@@ -50,7 +50,7 @@ export async function authenticatedRequest(
     const response = await fetch(url, {
       ...options,
       headers,
-      cache: "no-store", // 常に最新データを取得
+      cache: 'no-store', // 常に最新データを取得
     });
 
     // 404エラー時はnotFound()を呼び出してNext.jsの404ページを表示
@@ -61,12 +61,12 @@ export async function authenticatedRequest(
     // その他のエラーは例外をスロー
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
-      throw new Error(errorData.error || "リクエストに失敗しました");
+      throw new Error(errorData.error || 'リクエストに失敗しました');
     }
 
     // JSONレスポンスを返す（Content-Typeがapplication/jsonの場合のみ）
-    const contentType = response.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
       return await response.json();
     }
 

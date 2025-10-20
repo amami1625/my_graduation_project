@@ -5,6 +5,6 @@ export {
   bookSchema,
   bookDetailSchema,
   bookFormSchema,
-} from "@/schemas/book";
+} from '@/schemas/book';
 
-export type ReadingStatus = "unread" | "reading" | "completed";
+export type ReadingStatus = 'unread' | 'reading' | 'completed';

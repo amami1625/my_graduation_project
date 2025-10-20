@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { bookBaseSchema } from "./book";
-import { listBookSchema } from "./listBooks";
+import { z } from 'zod';
+import { bookBaseSchema } from './book';
+import { listBookSchema } from './listBooks';
 
 // Listベーススキーマ
 export const listBaseSchema = z.object({
@@ -10,13 +10,13 @@ export const listBaseSchema = z.object({
   user_id: z.number(),
   public: z.boolean(),
   created_at: z.string().transform((str) => {
-    return new Date(str).toLocaleString("ja-JP", {
-      timeZone: "Asia/Tokyo",
+    return new Date(str).toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo',
     });
   }),
   updated_at: z.string().transform((str) => {
-    return new Date(str).toLocaleString("ja-JP", {
-      timeZone: "Asia/Tokyo",
+    return new Date(str).toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo',
     });
   }),
 });
@@ -37,8 +37,8 @@ export const listFormSchema = z.object({
   id: z.number().optional(),
   name: z
     .string()
-    .min(1, { message: "リスト名を入力してください" })
-    .max(255, { message: "リスト名は255文字以内で入力してください" }),
+    .min(1, { message: 'リスト名を入力してください' })
+    .max(255, { message: 'リスト名は255文字以内で入力してください' }),
   description: z.string().optional(),
   user_id: z.number().optional(),
   public: z.boolean(),

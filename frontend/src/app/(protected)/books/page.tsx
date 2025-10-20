@@ -1,9 +1,9 @@
-import PageTitle from "@/components/PageTitle";
-import { getAuthors } from "../authors/_lib/queries";
-import { getCategories } from "../categories/_lib/queries";
-import BookList from "./_components/display/BookList";
-import { getBooks } from "./_lib/queries";
-import ErrorMessage from "@/components/ErrorMessage";
+import PageTitle from '@/components/PageTitle';
+import { getAuthors } from '../authors/_lib/queries';
+import { getCategories } from '../categories/_lib/queries';
+import BookList from './_components/display/BookList';
+import { getBooks } from './_lib/queries';
+import ErrorMessage from '@/components/ErrorMessage';
 
 export default async function BooksPage() {
   const [books, authors, categories] = await Promise.all([
@@ -12,15 +12,15 @@ export default async function BooksPage() {
     getCategories(),
   ]);
 
-  if ("error" in books) {
+  if ('error' in books) {
     return <ErrorMessage message={books.error} />;
   }
 
-  if ("error" in authors) {
+  if ('error' in authors) {
     return <ErrorMessage message={authors.error} />;
   }
 
-  if ("error" in categories) {
+  if ('error' in categories) {
     return <ErrorMessage message={categories.error} />;
   }
 
