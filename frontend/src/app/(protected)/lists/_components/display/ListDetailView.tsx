@@ -9,9 +9,7 @@ import { formatVisibility } from '@/lib/utils/formatVisibility';
 import UpdateListFormModal from '../modal/UpdateListFormModal';
 import AddBookModal from '@/app/(protected)/listBooks/_components/modal/AddBookModal';
 import AddedBooksView from '@/app/(protected)/lists/_components/display/AddedBooksView';
-import UpdateButton from '@/components/Buttons/UpdateButton';
-import DeleteButton from '@/components/Buttons/DeleteButton';
-import AddButton from '@/components/Buttons/AddButton';
+import { UpdateButton, DeleteButton, AddButton } from '@/components/Buttons';
 import ErrorMessage from '@/components/ErrorMessage';
 
 interface ListDetailProps {

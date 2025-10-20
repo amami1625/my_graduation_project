@@ -21,7 +21,13 @@ const BASE_STYLES =
 
 const DISABLED_STYLES = 'disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed';
 
-export default function BaseButton({ variant, onClick, disabled, children, icon }: BaseButtonProps) {
+export default function BaseButton({
+  variant,
+  onClick,
+  disabled,
+  children,
+  icon,
+}: BaseButtonProps) {
   const variantStyles = disabled ? '' : BUTTON_STYLES[variant];
 
   return (

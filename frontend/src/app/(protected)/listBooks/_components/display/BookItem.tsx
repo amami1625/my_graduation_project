@@ -1,7 +1,7 @@
 import { Book } from '@/app/(protected)/books/_types';
 import { useAddBookModal } from '../../_hooks/useAddBookModal';
 import ErrorMessage from '@/components/ErrorMessage';
-import AddButton from '@/components/Buttons/AddButton';
+import { AddButton } from '@/components/Buttons';
 
 interface BookItemProps {
   listId: number;

@@ -1,4 +1,4 @@
-import AddButton from '@/components/Buttons/AddButton';
+import { AddButton } from '@/components/Buttons';
 import ErrorMessage from '@/components/ErrorMessage';
 import { List } from '@/app/(protected)/lists/_types';
 import { useAddListModal } from '../../_hooks/useAddListModal';
