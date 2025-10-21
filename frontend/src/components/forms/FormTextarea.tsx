@@ -1,16 +1,16 @@
-import { RegisterOptions, UseFormRegister } from 'react-hook-form';
+import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
-interface FormTextareaProps {
-  name: string;
+interface FormTextareaProps<T extends FieldValues = FieldValues> {
+  name: Path<T>;
   label?: string;
   placeholder?: string;
   rows?: number;
   error?: string;
-  register: UseFormRegister<any>;
-  registerOptions?: RegisterOptions;
+  register: UseFormRegister<T>;
+  registerOptions?: RegisterOptions<T>;
 }
 
-export default function FormTextarea({
+export default function FormTextarea<T extends FieldValues = FieldValues>({
   name,
   label,
   placeholder,
@@ -18,7 +18,7 @@ export default function FormTextarea({
   error,
   register,
   registerOptions,
-}: FormTextareaProps) {
+}: FormTextareaProps<T>) {
   return (
     <label className="flex flex-col gap-2 text-sm">
       {label && <span className="font-semibold text-gray-700">{label}</span>}

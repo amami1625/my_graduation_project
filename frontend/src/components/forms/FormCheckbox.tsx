@@ -1,20 +1,20 @@
-import { RegisterOptions, UseFormRegister } from 'react-hook-form';
+import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
-interface FormCheckboxProps {
-  name: string;
+interface FormCheckboxProps<T extends FieldValues = FieldValues> {
+  name: Path<T>;
   label: string;
   error?: string;
-  register: UseFormRegister<any>;
-  registerOptions?: RegisterOptions;
+  register: UseFormRegister<T>;
+  registerOptions?: RegisterOptions<T>;
 }
 
-export default function FormCheckbox({
+export default function FormCheckbox<T extends FieldValues = FieldValues>({
   name,
   label,
   error,
   register,
   registerOptions,
-}: FormCheckboxProps) {
+}: FormCheckboxProps<T>) {
   return (
     <div className="flex flex-col gap-2">
       <label className="flex items-center gap-2 text-sm">

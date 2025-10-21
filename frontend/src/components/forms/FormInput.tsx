@@ -1,13 +1,13 @@
-import { RegisterOptions, UseFormRegister } from 'react-hook-form';
+import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
-interface FormInputProps {
-  name: string;
+interface FormInputProps<T extends FieldValues = FieldValues> {
+  name: Path<T>;
   label?: string;
   type?: 'text' | 'email' | 'password' | 'number' | 'hidden';
   placeholder?: string;
   error?: string;
-  register: UseFormRegister<any>;
-  registerOptions?: RegisterOptions;
+  register: UseFormRegister<T>;
+  registerOptions?: RegisterOptions<T>;
 }
 
 const BASE_STYLES = 'border border-gray-300';
@@ -23,7 +23,7 @@ const INPUT_STYLES = {
   hidden: '',
 } as const;
 
-export default function FormInput({
+export default function FormInput<T extends FieldValues = FieldValues>({
   name,
   label,
   type = 'text',
@@ -31,7 +31,7 @@ export default function FormInput({
   error,
   register,
   registerOptions,
-}: FormInputProps) {
+}: FormInputProps<T>) {
   // hidden inputの場合はラベルなしで返す
   if (type === 'hidden') {
     return <input type="hidden" {...register(name, registerOptions)} />;
