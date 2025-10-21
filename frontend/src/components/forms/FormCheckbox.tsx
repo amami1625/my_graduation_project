@@ -16,9 +16,10 @@ export default function FormCheckbox<T extends FieldValues = FieldValues>({
   registerOptions,
 }: FormCheckboxProps<T>) {
   return (
-    <div className="flex flex-col gap-2">
-      <label className="flex items-center gap-2 text-sm">
+    <div className="flex flex-col gap-2 text-sm">
+      <label htmlFor={name} className="flex items-center gap-2">
         <input
+          id={name}
           type="checkbox"
           {...register(name, registerOptions)}
           className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-100 focus:ring-offset-0"
