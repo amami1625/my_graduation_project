@@ -3,7 +3,7 @@
 import { List } from '@/app/(protected)/lists/_types';
 import { useCreateList } from '@/app/(protected)/lists/_hooks/useCreateList';
 import { CreateButton } from '@/components/Buttons';
-import CreateListFormModal from '@/app/(protected)/lists/_components/modal/CreateListFormModal';
+import CreateListFormModal from '@/app/(protected)/lists/_components/modal/';
 import ListCard from '@/app/(protected)/lists/_components/display/ListCard';
 import EmptyState from '@/components/EmptyState';
 

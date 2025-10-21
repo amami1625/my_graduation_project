@@ -6,7 +6,7 @@ import { useUpdateList } from '@/app/(protected)/lists/_hooks/useUpdateList';
 import { useDeleteList } from '@/app/(protected)/lists/_hooks/useDeleteList';
 import { useAddBookModal } from '@/app/(protected)/listBooks/_hooks/useAddBookModal';
 import { formatVisibility } from '@/lib/utils/formatVisibility';
-import UpdateListFormModal from '../modal/UpdateListFormModal';
+import UpdateListFormModal from '@/app/(protected)/lists/_components/modal';
 import AddBookModal from '@/app/(protected)/listBooks/_components/modal/AddBookModal';
 import AddedBooksView from '@/app/(protected)/lists/_components/display/AddedBooksView';
 import { UpdateButton, DeleteButton, AddButton } from '@/components/Buttons';
