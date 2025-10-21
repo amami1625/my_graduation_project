@@ -6,7 +6,7 @@ import { Category } from '@/app/(protected)/categories/_types';
 
 import BookCard from './BookCard';
 import { useCreateBook } from '../../_hooks/useCreateBook';
-import CreateBookFormModal from '../modal/CreateBookModal';
+import CreateBookFormModal from '@/app/(protected)/books/_components/modal';
 import { CreateButton } from '@/components/Buttons';
 import EmptyState from '@/components/EmptyState';
 
