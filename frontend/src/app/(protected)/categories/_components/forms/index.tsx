@@ -9,6 +9,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFormStatus } from 'react-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import FormInput from '@/components/forms/FormInput';
+import CancelButton from '@/components/Buttons/CancelButton';
+import ErrorMessage from '@/components/ErrorMessage';
+import SubmitButton from '@/components/Buttons/SubmitButton';
 
 interface CategoryFormProps {
   submitLabel: string;
@@ -55,38 +59,22 @@ export default function CategoryForm({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="grid gap-4 md:grid-cols-2">
-        <label className="flex flex-col gap-2 text-sm">
-          <span className="font-semibold text-gray-700">カテゴリ名</span>
-          <input
-            type="text"
-            {...register('name')}
-            className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-            placeholder="カテゴリ名を入力"
-          />
-          {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
-        </label>
+        <FormInput
+          name="name"
+          label="カテゴリ名"
+          placeholder="カテゴリ名を入力"
+          error={errors.name?.message}
+          register={register}
+        />
       </div>
 
       <div className="flex justify-end gap-3">
-        {cancel && (
-          <button
-            type="button"
-            className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
-            onClick={cancel}
-          >
-            キャンセル
-          </button>
-        )}
-        <button
-          type="submit"
-          disabled={pending}
-          className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300"
-        >
-          {pending ? '送信中...' : submitLabel}
-        </button>
+        <CancelButton onClick={cancel} />
+        <SubmitButton label={submitLabel} disabled={pending} />
       </div>
 
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+      {/* エラーメッセージ */}
+      {error && <ErrorMessage message={error} />}
     </form>
   );
 }

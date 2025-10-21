@@ -1,5 +1,11 @@
 import { List, ListFormData } from '@/app/(protected)/lists/_types';
 import { useListFormState } from '../../_hooks/useListFormState';
+import FormInput from '@/components/forms/FormInput';
+import FormTextarea from '@/components/forms/FormTextarea';
+import FormCheckbox from '@/components/forms/FormCheckbox';
+import ErrorMessage from '@/components/ErrorMessage';
+import CancelButton from '@/components/Buttons/CancelButton';
+import SubmitButton from '@/components/Buttons/SubmitButton';
 
 interface ListFormProps {
   list?: List;
@@ -22,73 +28,58 @@ export default function ListForm({ list, action, submitLabel, onClose }: ListFor
     >
       {list && (
         <>
-          <input {...register('user_id', { valueAsNumber: true })} type="hidden" />
-          <input {...register('id', { valueAsNumber: true })} type="hidden" />
+          <FormInput
+            name="user_id"
+            type="hidden"
+            register={register}
+            registerOptions={{ valueAsNumber: true }}
+          />
+          <FormInput
+            name="id"
+            type="hidden"
+            register={register}
+            registerOptions={{ valueAsNumber: true }}
+          />
         </>
       )}
 
       <div className="grid gap-4 md:grid-cols-2">
         {/* リスト名 */}
-        <label className="flex flex-col gap-2 text-sm">
-          <span className="font-semibold text-gray-700">リスト名</span>
-          <input
-            type="text"
-            {...register('name')}
-            className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-            placeholder="リスト名を入力"
-          />
-          {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
-        </label>
+        <FormInput
+          name="name"
+          label="リスト名"
+          type="text"
+          placeholder="リスト名を入力"
+          error={errors.name?.message}
+          register={register}
+        />
       </div>
 
       {/* 説明 */}
-      <label className="flex flex-col gap-2 text-sm">
-        <span className="font-semibold text-gray-700">説明</span>
-        <textarea
-          {...register('description')}
-          rows={5}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-          placeholder="リストの説明やメモを入力"
-        />
-        {errors.description && (
-          <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
-        )}
-      </label>
+      <FormTextarea
+        name="description"
+        label="説明"
+        placeholder="リストの説明やメモを入力"
+        error={errors.description?.message}
+        register={register}
+      />
 
       {/* 公開・非公開 */}
       <div className="grid gap-4 md:grid-cols-2">
-        <label className="flex flex-col gap-2 text-sm">
-          <span className="font-semibold text-gray-700">公開する</span>
-          <input
-            type="checkbox"
-            {...register('public')}
-            className="h-4 w-4 rounded border-gray-300"
-          />
-          {errors.public && <p className="mt-1 text-sm text-red-600">{errors.public.message}</p>}
-        </label>
+        <FormCheckbox
+          name="public"
+          label="公開する"
+          error={errors.public?.message}
+          register={register}
+        />
       </div>
 
-      {error && (
-        <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-700">
-          {error}
-        </p>
-      )}
+      {/* エラーメッセージ */}
+      {error && <ErrorMessage message={error} />}
 
       <div className="flex justify-end gap-3">
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
-          onClick={onClose}
-        >
-          キャンセル
-        </button>
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300"
-        >
-          {isSubmitting ? '送信中...' : submitLabel}
-        </button>
+        <CancelButton onClick={onClose} />
+        <SubmitButton label={submitLabel} disabled={isSubmitting} />
       </div>
     </form>
   );
