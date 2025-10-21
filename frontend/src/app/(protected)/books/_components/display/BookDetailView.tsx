@@ -4,16 +4,16 @@ import { BookDetail } from '@/app/(protected)/books/_types';
 import { List } from '@/app/(protected)/lists/_types';
 import { Author } from '@/app/(protected)/authors/types';
 import { Category } from '@/app/(protected)/categories/_types';
-import { useUpdateForm } from '../../_hooks/useUpdateForm';
-import UpdateBookFormModal from '../modal/UpdateBookModal';
+import UpdateBookFormModal from '@/app/(protected)/books/_components/modal';
 import { STATUS_LABEL } from '../../_constants';
 import { formatRating } from '@/lib/utils/formatRating';
-import ErrorMessage from '@/components/ErrorMessage';
-import { useDeleteBook } from '../../_hooks/useDeleteBook';
 import { formatVisibility } from '@/lib/utils/formatVisibility';
+import ErrorMessage from '@/components/ErrorMessage';
+import { useUpdateForm } from '../../_hooks/useUpdateForm';
+import { useDeleteBook } from '../../_hooks/useDeleteBook';
+import { useAddListModal } from '@/app/(protected)/listBooks/_hooks/useAddListModal';
 import { UpdateButton, DeleteButton, AddButton } from '@/components/Buttons';
 import AddListModal from '@/app/(protected)/listBooks/_components/modal/AddListModal';
-import { useAddListModal } from '@/app/(protected)/listBooks/_hooks/useAddListModal';
 import AddedListsView from '@/app/(protected)/books/_components/display/AddedListsView';
 
 interface BookDetailProps {
