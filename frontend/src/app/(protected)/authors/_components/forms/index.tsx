@@ -1,11 +1,8 @@
 'use client';
 
-import { AuthorFormData, authorFormSchema } from '@/schemas/author';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useFormStatus } from 'react-dom';
-import { useForm } from 'react-hook-form';
+import { AuthorFormData } from '@/schemas/author';
 import { Author } from '@/app/(protected)/authors/types';
-import { useState } from 'react';
+import { useCreateAuthor } from '@/app/(protected)/authors/_hooks/useCreateAuthor';
 import FormInput from '@/components/forms/FormInput';
 import CancelButton from '@/components/Buttons/CancelButton';
 import ErrorMessage from '@/components/ErrorMessage';
@@ -24,32 +21,11 @@ export default function AuthorForm({
   cancel,
   setCreatedAuthors,
 }: AuthorFormProps) {
-  const [error, setError] = useState('');
-
-  const defaultValues: AuthorFormData = {
-    name: '',
-  };
-
-  const { pending } = useFormStatus();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(authorFormSchema),
-    defaultValues,
+  const { error, register, handleSubmit, onSubmit, errors, isSubmitting } = useCreateAuthor({
+    action,
+    cancel,
+    setCreatedAuthors,
   });
-
-  const onSubmit = async (data: AuthorFormData) => {
-    const newAuthor = await action(data);
-    if ('error' in newAuthor) {
-      setError(newAuthor.error);
-      return;
-    }
-    setCreatedAuthors((prev) => [...prev, newAuthor]);
-    cancel();
-  };
 
   return (
     <form
@@ -68,7 +44,7 @@ export default function AuthorForm({
 
       <div className="flex justify-end gap-3">
         <CancelButton onClick={cancel} />
-        <SubmitButton label={submitLabel} disabled={pending} />
+        <SubmitButton label={submitLabel} disabled={isSubmitting} />
       </div>
 
       {/* エラーメッセージ */}
