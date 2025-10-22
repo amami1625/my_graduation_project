@@ -1,18 +1,11 @@
 'use client';
 
-import {
-  Category,
-  CategoryFormData,
-  categoryFormSchema,
-} from '@/app/(protected)/categories/_types';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useFormStatus } from 'react-dom';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Category, CategoryFormData } from '@/app/(protected)/categories/_types';
 import FormInput from '@/components/forms/FormInput';
 import CancelButton from '@/components/Buttons/CancelButton';
 import ErrorMessage from '@/components/ErrorMessage';
 import SubmitButton from '@/components/Buttons/SubmitButton';
+import { useCreateCategory } from '@/app/(protected)/categories/_hooks/useCreateCategory';
 
 interface CategoryFormProps {
   submitLabel: string;
@@ -27,31 +20,11 @@ export default function CategoryForm({
   cancel,
   setCreatedCategories,
 }: CategoryFormProps) {
-  const [error, setError] = useState('');
-  const { pending } = useFormStatus();
-
-  const defaultValues: CategoryFormData = {
-    name: '',
-  };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(categoryFormSchema),
-    defaultValues,
+  const { error, register, handleSubmit, onSubmit, errors, isSubmitting } = useCreateCategory({
+    action,
+    cancel,
+    setCreatedCategories,
   });
-
-  const onSubmit = async (data: CategoryFormData) => {
-    const newCategory = await action(data);
-    if ('error' in newCategory) {
-      setError(newCategory.error);
-      return;
-    }
-    setCreatedCategories((prev) => [...prev, newCategory]);
-    cancel();
-  };
 
   return (
     <form
@@ -70,7 +43,7 @@ export default function CategoryForm({
 
       <div className="flex justify-end gap-3">
         <CancelButton onClick={cancel} />
-        <SubmitButton label={submitLabel} disabled={pending} />
+        <SubmitButton label={submitLabel} disabled={isSubmitting} />
       </div>
 
       {/* エラーメッセージ */}
