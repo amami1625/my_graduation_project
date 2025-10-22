@@ -1,11 +1,12 @@
 'use client';
 
-import { AuthorFormData, authorFormSchema } from '@/schemas/author';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useFormStatus } from 'react-dom';
-import { useForm } from 'react-hook-form';
-import { Author } from '@/app/(protected)/authors/types';
-import { useState } from 'react';
+import { AuthorFormData } from '@/schemas/author';
+import { Author } from '@/app/(protected)/authors/_types';
+import { useCreateAuthor } from '@/app/(protected)/authors/_hooks/useCreateAuthor';
+import FormInput from '@/components/forms/FormInput';
+import CancelButton from '@/components/Buttons/CancelButton';
+import ErrorMessage from '@/components/ErrorMessage';
+import SubmitButton from '@/components/Buttons/SubmitButton';
 
 interface AuthorFormProps {
   submitLabel: string;
@@ -20,32 +21,11 @@ export default function AuthorForm({
   cancel,
   setCreatedAuthors,
 }: AuthorFormProps) {
-  const [error, setError] = useState('');
-
-  const defaultValues: AuthorFormData = {
-    name: '',
-  };
-
-  const { pending } = useFormStatus();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(authorFormSchema),
-    defaultValues,
+  const { error, register, handleSubmit, onSubmit, errors, isSubmitting } = useCreateAuthor({
+    action,
+    cancel,
+    setCreatedAuthors,
   });
-
-  const onSubmit = async (data: AuthorFormData) => {
-    const newAuthor = await action(data);
-    if ('error' in newAuthor) {
-      setError(newAuthor.error);
-      return;
-    }
-    setCreatedAuthors((prev) => [...prev, newAuthor]);
-    cancel();
-  };
 
   return (
     <form
@@ -53,38 +33,22 @@ export default function AuthorForm({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="grid gap-4 md:grid-cols-2">
-        <label className="flex flex-col gap-2 text-sm">
-          <span className="font-semibold text-gray-700">著者名</span>
-          <input
-            type="text"
-            {...register('name')}
-            className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-            placeholder="著者名を入力"
-          />
-          {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
-        </label>
+        <FormInput
+          name="name"
+          label="著者名"
+          placeholder="著者名を入力"
+          error={errors.name?.message}
+          register={register}
+        />
       </div>
 
       <div className="flex justify-end gap-3">
-        {cancel && (
-          <button
-            type="button"
-            className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
-            onClick={cancel}
-          >
-            キャンセル
-          </button>
-        )}
-        <button
-          type="submit"
-          disabled={pending}
-          className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300"
-        >
-          {pending ? '送信中...' : submitLabel}
-        </button>
+        <CancelButton onClick={cancel} />
+        <SubmitButton label={submitLabel} disabled={isSubmitting} />
       </div>
 
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+      {/* エラーメッセージ */}
+      {error && <ErrorMessage message={error} />}
     </form>
   );
 }

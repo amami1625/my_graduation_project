@@ -1,5 +1,5 @@
 import { authenticatedRequest } from '@/supabase/dal';
-import { Author, authorSchema } from '../types';
+import { Author, authorSchema } from '@/app/(protected)/authors/_types';
 
 export async function getAuthors(): Promise<Author[] | { error: string }> {
   try {

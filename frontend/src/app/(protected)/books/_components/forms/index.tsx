@@ -11,6 +11,13 @@ import { useBookFormState } from '../../_hooks/useBookFormState';
 import { useAuthorModal } from '../../_hooks/useAuthorModal';
 import { useCategoryModal } from '../../_hooks/useCategoryModal';
 import { STATUS_OPTIONS, RATING_OPTIONS } from '../../_constants';
+import FormInput from '@/components/forms/FormInput';
+import FormCheckbox from '@/components/forms/FormCheckbox';
+import FormTextarea from '@/components/forms/FormTextarea';
+import FormSelect from '@/components/forms/FormSelect';
+import ErrorMessage from '@/components/ErrorMessage';
+import CancelButton from '@/components/Buttons/CancelButton';
+import SubmitButton from '@/components/Buttons/SubmitButton';
 
 // TODO: Tag機能を実装したらTag型をimportする
 interface BookFormProps {
@@ -59,23 +66,31 @@ export default function BookForm({
       >
         {book && (
           <>
-            <input {...register('user_id', { valueAsNumber: true })} type="hidden" />
-            <input {...register('id', { valueAsNumber: true })} type="hidden" />
+            <FormInput
+              name="user_id"
+              type="hidden"
+              register={register}
+              registerOptions={{ valueAsNumber: true }}
+            />
+            <FormInput
+              name="id"
+              type="hidden"
+              register={register}
+              registerOptions={{ valueAsNumber: true }}
+            />
           </>
         )}
 
         <div className="grid gap-4 md:grid-cols-2">
           {/* タイトル */}
-          <label className="flex flex-col gap-2 text-sm">
-            <span className="font-semibold text-gray-700">タイトル</span>
-            <input
-              type="text"
-              {...register('title')}
-              className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-              placeholder="書籍タイトルを入力"
-            />
-            {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>}
-          </label>
+          <FormInput
+            name="title"
+            label="タイトル"
+            type="text"
+            placeholder="タイトルを入力"
+            error={errors.title?.message}
+            register={register}
+          />
           {/* 著者 */}
           <div className="flex flex-col gap-2 text-sm">
             <div className="flex items-center justify-between">
@@ -121,124 +136,70 @@ export default function BookForm({
             )}
           </div>
           {/* ステータス */}
-          <label className="flex flex-col gap-2 text-sm">
-            <span className="font-semibold text-gray-700">ステータス</span>
-            <select
-              {...register('reading_status')}
-              className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-            >
-              {STATUS_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            {errors.reading_status && (
-              <p className="mt-1 text-sm text-red-600">{errors.reading_status.message}</p>
-            )}
-          </label>
+          <FormSelect
+            name="reading_status"
+            label="ステータス"
+            options={STATUS_OPTIONS}
+            error={errors.reading_status?.message}
+            register={register}
+          />
           {/* 評価 */}
-          <label className="flex flex-col gap-2 text-sm">
-            <span className="font-semibold text-gray-700">評価 (1-5)</span>
-            <select
-              {...register('rating', { valueAsNumber: true })}
-              className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-            >
-              <option value="0">未評価</option>
-              {RATING_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            {errors.rating && <p className="mt-1 text-sm text-red-600">{errors.rating.message}</p>}
-          </label>
+          <FormSelect
+            name="rating"
+            label="評価 (1-5)"
+            options={RATING_OPTIONS}
+            defaultValue="0"
+            defaultLabel="未評価"
+            error={errors.rating?.message}
+            register={register}
+            registerOptions={{ valueAsNumber: true }}
+          />
         </div>
 
         {/* 説明 */}
-        <label className="flex flex-col gap-2 text-sm">
-          <span className="font-semibold text-gray-700">説明</span>
-          <textarea
-            {...register('description')}
-            rows={5}
-            className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
-            placeholder="書籍の説明やメモを入力"
-          />
-          {errors.description && (
-            <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
-          )}
-        </label>
+        <FormTextarea
+          name="description"
+          label="説明"
+          placeholder="書籍の説明やメモを入力"
+          error={errors.description?.message}
+          register={register}
+        />
 
         {/* カテゴリ */}
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="flex flex-col gap-2 text-sm">
-            <div className="flex items-center justify-between">
-              <label htmlFor="book-authors" className="font-semibold text-gray-700">
-                カテゴリ
-              </label>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openCategoryModal();
-                }}
-                className="text-sm text-blue-600 hover:text-blue-700"
-              >
-                + カテゴリを追加
-              </button>
-            </div>
-            <select
-              {...register('category_id', { valueAsNumber: true })}
-              className="rounded-lg border border-gray-300 px-3 py-2 text-base text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
+        <FormSelect
+          name="category_id"
+          label="カテゴリ"
+          options={createdCategories.map((c) => ({ value: c.id, label: c.name }))}
+          defaultValue="0"
+          defaultLabel="未分類"
+          error={errors.category_id?.message}
+          register={register}
+          registerOptions={{ valueAsNumber: true }}
+          button={
+            <button
+              type="button"
+              onClick={openCategoryModal}
+              className="text-sm text-blue-600 hover:text-blue-700"
             >
-              <option value="0">未分類</option>
-              {createdCategories &&
-                createdCategories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-            </select>
-            {errors.category_id && (
-              <p className="mt-1 text-sm text-red-600">{errors.category_id.message}</p>
-            )}
-          </div>
-        </div>
+              + カテゴリを追加
+            </button>
+          }
+        />
 
         {/* 公開・非公開 */}
-        <div className="grid gap-4 md:grid-cols-2">
-          <label className="flex flex-col gap-2 text-sm">
-            <span className="font-semibold text-gray-700">公開する</span>
-            <input
-              type="checkbox"
-              {...register('public')}
-              className="h-4 w-4 rounded border-gray-300"
-            />
-            {errors.public && <p className="mt-1 text-sm text-red-600">{errors.public.message}</p>}
-          </label>
-        </div>
+        <FormCheckbox
+          name="public"
+          label="公開する"
+          error={errors.public?.message}
+          register={register}
+        />
 
-        {error && (
-          <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-700">
-            {error}
-          </p>
-        )}
+        {/* エラーメッセージ */}
+        {error && <ErrorMessage message={error} />}
 
         <div className="flex justify-end gap-3">
-          <button
-            type="button"
-            className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
-            onClick={onClose}
-          >
-            キャンセル
-          </button>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300"
-          >
-            {isSubmitting ? '送信中...' : submitLabel}
-          </button>
+          <CancelButton onClick={onClose} />
+          <SubmitButton label={submitLabel} disabled={isSubmitting} />
         </div>
       </form>
       {/* モーダル */}
