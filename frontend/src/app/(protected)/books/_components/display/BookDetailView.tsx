@@ -2,7 +2,7 @@
 
 import { BookDetail } from '@/app/(protected)/books/_types';
 import { List } from '@/app/(protected)/lists/_types';
-import { Author } from '@/app/(protected)/authors/types';
+import { Author } from '@/app/(protected)/authors/_types';
 import { Category } from '@/app/(protected)/categories/_types';
 import UpdateBookFormModal from '@/app/(protected)/books/_components/modal';
 import { STATUS_LABEL } from '../../_constants';

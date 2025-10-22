@@ -1,5 +1,5 @@
 import { Book } from '@/app/(protected)/books/_types';
-import { Author } from '@/app/(protected)/authors/types';
+import { Author } from '@/app/(protected)/authors/_types';
 import { Category } from '@/app/(protected)/categories/_types';
 import BookForm from '@/app/(protected)/books/_components/forms';
 import BaseModal from '@/components/BaseModal';

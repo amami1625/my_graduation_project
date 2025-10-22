@@ -1,7 +1,7 @@
 'use client';
 
 import { AuthorFormData } from '@/schemas/author';
-import { Author } from '@/app/(protected)/authors/types';
+import { Author } from '@/app/(protected)/authors/_types';
 import { useCreateAuthor } from '@/app/(protected)/authors/_hooks/useCreateAuthor';
 import FormInput from '@/components/forms/FormInput';
 import CancelButton from '@/components/Buttons/CancelButton';

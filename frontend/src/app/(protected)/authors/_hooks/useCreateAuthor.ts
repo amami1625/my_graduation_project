@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Author, AuthorFormData, authorFormSchema } from '@/app/(protected)/authors/types';
+import { Author, AuthorFormData, authorFormSchema } from '@/app/(protected)/authors/_types';
 
 interface UseCreateAuthorProps {
   action: (formData: AuthorFormData) => Promise<Author | { error: string }>;

@@ -1,6 +1,6 @@
 import AuthorForm from '../forms';
 import { createAuthor } from '../../_lib/actions';
-import { Author } from '../../types';
+import { Author } from '@/app/(protected)/authors/_types';
 import BaseModal from '@/components/BaseModal';
 
 interface AuthorModalProps {

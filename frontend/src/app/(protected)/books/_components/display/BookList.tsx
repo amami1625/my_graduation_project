@@ -1,7 +1,7 @@
 'use client';
 
 import { Book } from '@/app/(protected)/books/_types';
-import { Author } from '@/app/(protected)/authors/types';
+import { Author } from '@/app/(protected)/authors/_types';
 import { Category } from '@/app/(protected)/categories/_types';
 
 import BookCard from './BookCard';
