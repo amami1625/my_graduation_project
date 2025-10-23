@@ -15,6 +15,9 @@ import { useAddListModal } from '@/app/(protected)/listBooks/_hooks/useAddListMo
 import { UpdateButton, DeleteButton, AddButton } from '@/components/Buttons';
 import AddListModal from '@/app/(protected)/listBooks/_components/modal/AddListModal';
 import AddedListsView from '@/app/(protected)/books/_components/display/AddedListsView';
+import { useCardModal } from '@/app/(protected)/cards/_hooks/useCardModal';
+import CardModal from '@/app/(protected)/cards/_components/modal';
+import CreatedCardsView from '@/app/(protected)/books/_components/display/CreatedCardsView';
 
 interface BookDetailProps {
   book: BookDetail;
@@ -26,6 +29,7 @@ interface BookDetailProps {
 export default function BookDetailView({ book, lists, authors, categories }: BookDetailProps) {
   const { isUpdateFormOpen, openUpdateForm, closeUpdateForm } = useUpdateForm();
   const { isAddListModalOpen, openAddListModal, closeAddListModal } = useAddListModal();
+  const { isCardModalOpen, openCardModal, closeCardModal } = useCardModal();
   const { error, handleDelete } = useDeleteBook(book.id);
 
   return (
@@ -88,9 +92,13 @@ export default function BookDetailView({ book, lists, authors, categories }: Boo
           <UpdateButton onClick={openUpdateForm} />
           <DeleteButton onClick={handleDelete} />
           <AddButton onClick={openAddListModal} />
+          <button type="button" onClick={openCardModal}>
+            ナレッジカードを作成
+          </button>
         </div>
 
         <AddedListsView lists={book.lists} listBooks={book.list_books} />
+        <CreatedCardsView cards={book.cards} />
       </article>
 
       <UpdateBookFormModal
@@ -106,6 +114,7 @@ export default function BookDetailView({ book, lists, authors, categories }: Boo
         isOpen={isAddListModalOpen}
         onClose={closeAddListModal}
       />
+      <CardModal bookId={book.id} isOpen={isCardModalOpen} onClose={closeCardModal} />
     </section>
   );
 }
