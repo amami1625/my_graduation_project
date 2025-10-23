@@ -27,20 +27,12 @@ export default function ListForm({ list, action, submitLabel, onClose }: ListFor
       onSubmit={handleSubmit(onSubmit)}
     >
       {list && (
-        <>
-          <FormInput
-            name="user_id"
-            type="hidden"
-            register={register}
-            registerOptions={{ valueAsNumber: true }}
-          />
-          <FormInput
-            name="id"
-            type="hidden"
-            register={register}
-            registerOptions={{ valueAsNumber: true }}
-          />
-        </>
+        <FormInput
+          name="id"
+          type="hidden"
+          register={register}
+          registerOptions={{ valueAsNumber: true }}
+        />
       )}
 
       <div className="grid gap-4 md:grid-cols-2">

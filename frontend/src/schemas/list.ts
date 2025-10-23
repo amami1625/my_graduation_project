@@ -40,7 +40,6 @@ export const listFormSchema = z.object({
     .min(1, { message: 'リスト名を入力してください' })
     .max(255, { message: 'リスト名は255文字以内で入力してください' }),
   description: z.string().optional(),
-  user_id: z.number().optional(),
   public: z.boolean(),
 });
 

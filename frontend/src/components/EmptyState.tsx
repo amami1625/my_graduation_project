@@ -1,25 +1,45 @@
-import { BookOpen, Library } from 'lucide-react';
+import { BookOpen, Library, StickyNote } from 'lucide-react';
 
 interface EmptyStateProps {
-  element: '本' | 'リスト';
+  element: '本' | 'リスト' | 'カード';
   context?: 'list' | 'detail';
 }
 
 export default function EmptyState({ element, context = 'list' }: EmptyStateProps) {
-  const Icon = element === '本' ? BookOpen : Library;
+  let Icon;
+  switch (element) {
+    case '本':
+      Icon = BookOpen;
+      break;
+    case 'リスト':
+      Icon = Library;
+      break;
+    case 'カード':
+      Icon = StickyNote;
+      break;
+    default:
+      Icon = BookOpen;
+      break;
+  }
 
   const getMessage = () => {
     if (context === 'detail') {
-      if (element === '本') {
-        return {
-          title: 'まだ本が登録されていません',
-          description: 'リストに本を追加してみましょう',
-        };
-      } else {
-        return {
-          title: 'まだリストに追加されていません',
-          description: '本をリストに追加してみましょう',
-        };
+      switch (element) {
+        case '本':
+          return {
+            title: 'まだ本が登録されていません',
+            description: 'リストに本を追加してみましょう',
+          };
+        case 'リスト':
+          return {
+            title: 'まだリストに追加されていません',
+            description: '本をリストに追加してみましょう',
+          };
+        case 'カード':
+          return {
+            title: 'まだカードが登録されていません',
+            description: 'カードを作成してメモを残しましょう',
+          };
       }
     }
 
