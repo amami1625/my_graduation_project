@@ -12,7 +12,7 @@ import ErrorMessage from '@/components/ErrorMessage';
 import { useUpdateForm } from '../../_hooks/useUpdateForm';
 import { useDeleteBook } from '../../_hooks/useDeleteBook';
 import { useAddListModal } from '@/app/(protected)/listBooks/_hooks/useAddListModal';
-import { UpdateButton, DeleteButton, AddButton } from '@/components/Buttons';
+import { UpdateButton, DeleteButton, AddButton, CreateCardButton } from '@/components/Buttons';
 import AddListModal from '@/app/(protected)/listBooks/_components/modal/AddListModal';
 import AddedListsView from '@/app/(protected)/books/_components/display/AddedListsView';
 import { useCardModal } from '@/app/(protected)/cards/_hooks/useCardModal';
@@ -92,9 +92,7 @@ export default function BookDetailView({ book, lists, authors, categories }: Boo
           <UpdateButton onClick={openUpdateForm} />
           <DeleteButton onClick={handleDelete} />
           <AddButton onClick={openAddListModal} />
-          <button type="button" onClick={openCardModal}>
-            ナレッジカードを作成
-          </button>
+          <CreateCardButton onClick={openCardModal} />
         </div>
 
         <AddedListsView lists={book.lists} listBooks={book.list_books} />
