@@ -16,7 +16,6 @@ export function useListFormState({ list, action, onSuccess }: UseListFormStatePr
     id: list?.id,
     name: list?.name ?? '',
     description: list?.description ?? '',
-    user_id: list?.user_id,
     public: list?.public ?? false,
   };
 

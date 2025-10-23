@@ -16,7 +16,6 @@ export function useBookFormState({ book, action, onSuccess }: UseBookFormStatePr
     id: book?.id,
     title: book?.title ?? '',
     description: book?.description ?? '',
-    user_id: book?.user_id,
     author_ids: book?.author_ids ?? [],
     category_id: book?.category_id ?? 0,
     rating: book?.rating ?? 0,

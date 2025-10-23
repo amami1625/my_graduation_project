@@ -65,20 +65,12 @@ export default function BookForm({
         onSubmit={handleSubmit(onSubmit)}
       >
         {book && (
-          <>
-            <FormInput
-              name="user_id"
-              type="hidden"
-              register={register}
-              registerOptions={{ valueAsNumber: true }}
-            />
-            <FormInput
-              name="id"
-              type="hidden"
-              register={register}
-              registerOptions={{ valueAsNumber: true }}
-            />
-          </>
+          <FormInput
+            name="id"
+            type="hidden"
+            register={register}
+            registerOptions={{ valueAsNumber: true }}
+          />
         )}
 
         <div className="grid gap-4 md:grid-cols-2">
