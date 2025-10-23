@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { categorySchema } from './category';
 import { authorSchema } from './author';
 import { listBookSchema } from '@/app/(protected)/listBooks/_types';
+import { cardSchema } from '@/app/(protected)/cards/_types';
 
 // Bookベーススキーマ
 // TODO: タグ機能実装時にtagsフィールドを追加
@@ -44,6 +45,7 @@ export const bookSchema = bookBaseSchema.extend({
 // Book詳細データのバリデーションスキーマ(APIレスポンス用)
 export const bookDetailSchema = bookSchema.extend({
   list_books: z.array(listBookSchema),
+  cards: z.array(cardSchema),
 });
 
 // Bookのバリデーションスキーマ(フォーム用)
