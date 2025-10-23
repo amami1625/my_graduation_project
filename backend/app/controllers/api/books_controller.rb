@@ -23,13 +23,14 @@ class Api::BooksController < Api::ApplicationController
   end
 
   def show
-    book = current_user.books.includes(:category, :authors, :lists, :list_books).find(params[:id])
+    book = current_user.books.includes(:category, :authors, :lists, :list_books, :cards).find(params[:id])
     render json: book,
            include: {
              category: {},
              authors: {},
              lists: {},
-             list_books: { only: [:id, :book_id, :list_id] }
+             list_books: { only: [:id, :book_id, :list_id] },
+             cards: {}
            },
            methods: [:author_ids, :list_ids]
   end
