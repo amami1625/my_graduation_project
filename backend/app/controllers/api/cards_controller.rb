@@ -9,6 +9,16 @@ class Api::CardsController < Api::ApplicationController
     end
   end
 
+  def destroy
+    book = current_user.books.find(params[:book_id])
+    card = book.cards.find(params[:id])
+    if card.destroy
+      head :no_content
+    else
+      render json: { errors: card.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def card_params

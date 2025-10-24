@@ -23,3 +23,23 @@ export const createCard = async (
     }
   }
 };
+
+export const deleteCard = async (
+  bookId: number,
+  cardId: number,
+): Promise<{ success: true } | { error: string }> => {
+  try {
+    await authenticatedRequest(`/books/${bookId}/cards/${cardId}`, {
+      method: 'DELETE',
+    });
+
+    revalidatePath(`/books/${bookId}`);
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    } else {
+      return { error: '不明なエラーが発生しました' };
+    }
+  }
+};
