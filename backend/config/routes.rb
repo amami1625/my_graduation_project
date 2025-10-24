@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   namespace :api do
     get "hello/index", to: "hello#index"
     resources :books, only: %i[index create update show destroy] do
-      resources :cards, only: %i[create]
+      resources :cards, only: %i[create destroy]
     end
     resources :lists, only: %i[index create update show destroy]
     resources :list_books, only: %i[create destroy]
