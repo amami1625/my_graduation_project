@@ -112,7 +112,12 @@ export default function BookDetailView({ book, lists, authors, categories }: Boo
         isOpen={isAddListModalOpen}
         onClose={closeAddListModal}
       />
-      <CardModal bookId={book.id} isOpen={isCardModalOpen} onClose={closeCardModal} />
+      <CardModal
+        bookId={book.id}
+        bookTitle={book.title}
+        isOpen={isCardModalOpen}
+        onClose={closeCardModal}
+      />
     </section>
   );
 }
