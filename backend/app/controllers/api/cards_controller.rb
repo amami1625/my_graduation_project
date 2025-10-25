@@ -14,6 +14,15 @@ class Api::CardsController < Api::ApplicationController
     end
   end
 
+  def show
+    card = Card.joins(:book).includes(:book).find_by(id: params[:id], books: { user_id: current_user.id })
+    if card
+      render json: card, include: [:book]
+    else
+      render json: { error: 'Card not found' }, status: :not_found
+    end
+  end
+
   def destroy
     book = current_user.books.find(params[:book_id])
     card = book.cards.find(params[:id])
