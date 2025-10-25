@@ -18,6 +18,19 @@ export const cardSchema = z.object({
   }),
 });
 
+// Card一覧のレスポンススキーマ(APIレスポンス用)
+export const cardListSchema = z.object({
+  books: z.array(
+    z.object({
+      book: z.object({
+        id: z.number(),
+        title: z.string(),
+      }),
+      cards: z.array(cardSchema),
+    }),
+  ),
+});
+
 // Cardのバリデーションスキーマ(フォーム用)
 export const cardFormSchema = z.object({
   book_id: z.number(),
@@ -33,3 +46,4 @@ export const cardFormSchema = z.object({
 
 export type Card = z.infer<typeof cardSchema>;
 export type CardFormData = z.infer<typeof cardFormSchema>;
+export type CardList = z.infer<typeof cardListSchema>;
