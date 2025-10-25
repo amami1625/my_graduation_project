@@ -1,4 +1,9 @@
 class Api::CardsController < Api::ApplicationController
+  def index
+    books_with_cards = Book.as_cards_list(current_user)
+    render json: { books: books_with_cards }
+  end
+
   def create
     book = current_user.books.find(params[:book_id])
     card = book.cards.build(card_params)

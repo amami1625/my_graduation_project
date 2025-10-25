@@ -13,4 +13,25 @@ class Book < ApplicationRecord
   validates :public, inclusion: { in: [true, false] }
 
   enum reading_status: { unread: 0, reading: 1, completed: 2 }
+
+  def self.as_cards_list(user)
+    user.books.includes(:cards).map do |book|
+      {
+        book: {
+          id: book.id,
+          title: book.title
+        },
+        cards: book.cards.map do |card|
+          {
+            id: card.id,
+            title: card.title,
+            content: card.content,
+            book_id: card.book_id,
+            created_at: card.created_at,
+            updated_at: card.updated_at
+          }
+        end
+      }
+    end
+  end
 end
