@@ -6,7 +6,7 @@ import FormInput from '@/components/forms/FormInput';
 import FormTextarea from '@/components/forms/FormTextarea';
 import ErrorMessage from '@/components/ErrorMessage';
 import { Card, CardFormData } from '@/app/(protected)/cards/_types';
-import { useCreateCard } from '@/app/(protected)/cards/_hooks/useCreateCard';
+import { useCardForm } from '@/app/(protected)/cards/_hooks/useCardForm';
 
 interface CardFormProps {
   card?: Card;
@@ -17,7 +17,7 @@ interface CardFormProps {
 }
 
 export default function CardForm({ card, bookId, action, onClose, submitLabel }: CardFormProps) {
-  const { error, register, handleSubmit, onSubmit, errors, isSubmitting } = useCreateCard({
+  const { error, register, handleSubmit, onSubmit, errors, isSubmitting } = useCardForm({
     card,
     action,
     cancel: onClose,
