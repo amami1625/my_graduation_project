@@ -3,8 +3,8 @@
 import { Card } from '@/app/(protected)/cards/_types';
 import { useDeleteCard } from '@/app/(protected)/cards/_hooks/useDeleteCard';
 import { DeleteButton } from '@/components/Buttons';
+import { DetailLink } from '@/components/links';
 import ErrorMessage from '@/components/ErrorMessage';
-import Link from 'next/link';
 
 interface CardItemProps {
   card: Card;
@@ -27,9 +27,9 @@ export default function CardItem({ card }: CardItemProps) {
           <p className="text-sm text-gray-600 whitespace-pre-wrap">{card.content}</p>
         </div>
 
-        {/* 削除ボタン */}
-        <div className="flex-shrink-0">
-          <Link href={`/cards/${card.id}`}>詳細</Link>
+        {/* アクションボタン */}
+        <div className="flex-shrink-0 flex gap-2">
+          <DetailLink href={`/cards/${card.id}`} />
           <DeleteButton onClick={handleDelete} />
         </div>
       </div>
