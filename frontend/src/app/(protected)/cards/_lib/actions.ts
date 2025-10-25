@@ -25,6 +25,27 @@ export const createCard = async (
   }
 };
 
+export const updateCard = async (
+  formData: CardFormData,
+): Promise<{ success: true } | { error: string }> => {
+  try {
+    await authenticatedRequest(`/books/${formData.book_id}/cards/${formData.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ card: formData }),
+    });
+
+    revalidatePath(`/books/${formData.book_id}`);
+    revalidatePath('/cards');
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    } else {
+      return { error: '不明なエラーが発生しました' };
+    }
+  }
+};
+
 export const deleteCard = async (
   bookId: number,
   cardId: number,
