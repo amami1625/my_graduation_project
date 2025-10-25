@@ -18,6 +18,7 @@ import AddedListsView from '@/app/(protected)/books/_components/display/AddedLis
 import { useCardModal } from '@/app/(protected)/cards/_hooks/useCardModal';
 import CardModal from '@/app/(protected)/cards/_components/modal';
 import CreatedCardsView from '@/app/(protected)/books/_components/display/CreatedCardsView';
+import { createCard } from '@/app/(protected)/cards/_lib/actions';
 
 interface BookDetailProps {
   book: BookDetail;
@@ -113,6 +114,7 @@ export default function BookDetailView({ book, lists, authors, categories }: Boo
         onClose={closeAddListModal}
       />
       <CardModal
+        action={createCard}
         bookId={book.id}
         bookTitle={book.title}
         isOpen={isCardModalOpen}

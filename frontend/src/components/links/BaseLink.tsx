@@ -14,7 +14,8 @@ const LINK_STYLES = {
   detail: 'text-blue-600 hover:bg-blue-50',
 };
 
-const BASE_STYLES = 'inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition';
+const BASE_STYLES =
+  'inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition';
 
 export default function BaseLink({ href, children, variant = 'primary', icon }: BaseLinkProps) {
   return (

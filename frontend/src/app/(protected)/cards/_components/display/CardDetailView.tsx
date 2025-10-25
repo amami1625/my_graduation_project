@@ -2,8 +2,11 @@
 
 import { CardDetail } from '@/app/(protected)/cards/_types';
 import ErrorMessage from '@/components/ErrorMessage';
+import CardModal from '@/app/(protected)/cards/_components/modal';
+import { DeleteButton, UpdateButton } from '@/components/Buttons';
+import { useCardModal } from '@/app/(protected)/cards/_hooks/useCardModal';
 import { useDeleteCard } from '@/app/(protected)/cards/_hooks/useDeleteCard';
-import { DeleteButton } from '@/components/Buttons';
+import { updateCard } from '@/app/(protected)/cards/_lib/actions';
 
 interface CardDetailViewProps {
   card: CardDetail;
@@ -15,6 +18,8 @@ export default function CardDetailView({ card }: CardDetailViewProps) {
     bookId: card.book_id,
     redirectTo: '/cards',
   });
+
+  const { isCardModalOpen, openCardModal, closeCardModal } = useCardModal();
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-10">
@@ -50,9 +55,20 @@ export default function CardDetailView({ card }: CardDetailViewProps) {
         </section>
 
         <div className="flex gap-3">
+          <UpdateButton onClick={openCardModal} />
           <DeleteButton onClick={handleDelete} />
         </div>
       </article>
+
+      {/* カード更新モーダル */}
+      <CardModal
+        card={card}
+        action={updateCard}
+        bookId={card.book_id}
+        bookTitle={card.book.title}
+        isOpen={isCardModalOpen}
+        onClose={closeCardModal}
+      />
     </section>
   );
 }

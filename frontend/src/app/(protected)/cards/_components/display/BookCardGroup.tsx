@@ -5,6 +5,7 @@ import CardItem from '@/app/(protected)/cards/_components/display/CardItem';
 import CardModal from '@/app/(protected)/cards/_components/modal';
 import { CreateCardButton } from '@/components/Buttons';
 import { useCardModal } from '@/app/(protected)/cards/_hooks/useCardModal';
+import { createCard } from '@/app/(protected)/cards/_lib/actions';
 
 interface BookCardGroupProps {
   book: {
@@ -40,6 +41,7 @@ export default function BookCardGroup({ book, cards }: BookCardGroupProps) {
 
       {/* カード作成モーダル */}
       <CardModal
+        action={createCard}
         bookId={book.id}
         bookTitle={book.title}
         isOpen={isCardModalOpen}

@@ -14,6 +14,16 @@ class Api::CardsController < Api::ApplicationController
     end
   end
 
+  def update
+    book = current_user.books.find(params[:book_id])
+    card = book.cards.find(params[:id])
+    if card.update(card_params)
+      render json: card, status: :ok
+    else
+      render json: { errors: card.errors }, status: :unprocessable_entity
+    end
+  end
+
   def show
     card = Card.joins(:book).includes(:book).find_by(id: params[:id], books: { user_id: current_user.id })
     if card

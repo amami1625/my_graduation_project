@@ -3,17 +3,18 @@ import { useForm } from 'react-hook-form';
 import { Card, CardFormData, cardFormSchema } from '@/app/(protected)/cards/_types';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-interface UseCreateCardProps {
+interface UseCardFormProps {
   card?: Card;
   bookId: number;
   action: (formData: CardFormData) => Promise<{ success: true } | { error: string }>;
   cancel: () => void;
 }
 
-export const useCreateCard = ({ card, bookId, action, cancel }: UseCreateCardProps) => {
+export const useCardForm = ({ card, bookId, action, cancel }: UseCardFormProps) => {
   const [error, setError] = useState('');
 
   const defaultValues: CardFormData = {
+    id: card?.id,
     book_id: card ? card.book_id : bookId,
     title: card ? card.title : '',
     content: card ? card.content : '',
