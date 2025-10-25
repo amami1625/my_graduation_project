@@ -14,6 +14,7 @@ export const createCard = async (
     });
 
     revalidatePath(`/books/${formData.book_id}`);
+    revalidatePath('/cards');
     return { success: true };
   } catch (error) {
     if (error instanceof Error) {
@@ -34,6 +35,7 @@ export const deleteCard = async (
     });
 
     revalidatePath(`/books/${bookId}`);
+    revalidatePath('/cards');
     return { success: true };
   } catch (error) {
     if (error instanceof Error) {
