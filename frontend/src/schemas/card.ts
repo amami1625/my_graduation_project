@@ -31,6 +31,12 @@ export const cardListSchema = z.object({
   ),
 });
 
+export const cardDetailSchema = cardSchema.extend({
+  book: z.object({
+    title: z.string(),
+  }),
+});
+
 // Cardのバリデーションスキーマ(フォーム用)
 export const cardFormSchema = z.object({
   book_id: z.number(),
@@ -45,5 +51,6 @@ export const cardFormSchema = z.object({
 });
 
 export type Card = z.infer<typeof cardSchema>;
+export type CardDetail = z.infer<typeof cardDetailSchema>;
 export type CardFormData = z.infer<typeof cardFormSchema>;
 export type CardList = z.infer<typeof cardListSchema>;
